@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=123
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    environment:
+      - DJANGO_SETTINGS_MODULE=settings.dev
+    volumes:
+      - .:/src
+    command:
+      /bin/bash -c "pip install -r requirements.txt; python manage.py runserver 0.0.0.0:8000"
+    links:
+      - db
+    ports:
+      - 8000:8000
