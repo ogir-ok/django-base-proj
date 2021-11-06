@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def list_movies(request):
+    return render(request, 'movies/list.html')
