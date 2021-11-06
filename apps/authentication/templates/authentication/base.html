@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<a href="{% url 'auth:logout' %}"> log out</a> |
-<a href="{% url 'authentication:home' %}"> Home </a>
+{%  extends 'base.html' %}
 
-<br/>
-<br/>
+{% block title %}
+    Hi, {{ request.user }}!
+{% endblock title %}
 
+{% block content %}
 Hi {{ request.user }}!
-</body>
-</html>
+{% endblock content %}
