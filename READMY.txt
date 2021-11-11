@@ -1,0 +1,4 @@
+python manage.py load_movies /apps/movies/templates/csv/
+python manage.py load_persons /apps/movies/templates/csv/
+python manage.py load_person_movies /apps/movies/templates/csv/
+
