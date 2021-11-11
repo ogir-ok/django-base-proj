@@ -25,8 +25,8 @@ class Person(models.Model):
 
 
 class PersonMovie(models.Model):
-    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, related_name='tconst', null=True, blank=True)
-    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='nconst', null=True, blank=True)
+    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, null=True, blank=True)
+    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, null=True, blank=True)
     order = models.IntegerField(_('ordering'), null=True, blank=True)
 
     class Category(models.TextChoices):
