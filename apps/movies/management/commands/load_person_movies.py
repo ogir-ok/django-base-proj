@@ -1,33 +1,32 @@
 import csv
 from django.core.management import BaseCommand
-from django.utils import timezone
-from apps.movies.models import PersonMovie
+from apps.movies.models import *
 
 
 class Command(BaseCommand):
     help = "Loads products and product categories from CSV file."
 
     def add_arguments(self, parser):
-        parser.add_argument("file_path", type=str)
+        parser.add_argument("--file",
+                            action='store',
+                            dest='path',
+                            required=True
+                            )
 
     def handle(self, *args, **options):
-        start_time = timezone.now()
-        with open('apps/movies/templates/csv/person_movies.csv', "r") as csv_file:
+        path = options['path']
+        with open(path, "r") as csv_file:
             data = csv.reader(csv_file, delimiter=",")
-            for row in data:
-                person_movies = PersonMovie.objects.get_or_create(
-                    movie_id=row[0],
-                    person_id=row[1],
-                    order=row[2],
-                    category=row[3],
-                    job=row[4],
-                    characters=row[5]
-                )
-        csv_file.close()
-        end_time = timezone.now()
-        self.stdout.write(
-            self.style.SUCCESS(
-                f"Loading CSV took: {(end_time-start_time).total_seconds()} seconds."
-            )
-        )
-
+            try:
+                for row in data:
+                    movie, created = Movie.objects.get_or_create(imdb_id=row[0])
+                    person, created = Person.objects.get_or_create(imdb_id=row[1])
+                    person_movies, created = PersonMovie.objects.get_or_create(movie_id=movie, person_id=person)
+                    person_movies.order = row[2]
+                    person_movies.category = row[3]
+                    person_movies.job = row[4]
+                    person_movies.characters = row[5]
+                    person_movies.save()
+            except:
+                print('Error')
+            csv_file.close()
