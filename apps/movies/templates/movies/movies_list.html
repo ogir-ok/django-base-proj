@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h3><a href="{% url 'movies:movie_detail' pk=movie.pk %}">{{ movie.name }}</a></h3>
                 <p>Tittle type: {{ movie.title_type }},
-                    released in: {{ year }}
+                    released in: {{ movie.year }}
                     {% if movie.is_adult %},  PG: 18 {% endif %} </p>
                 <p class="card-text">
                     {% for genre in movie.genres %}

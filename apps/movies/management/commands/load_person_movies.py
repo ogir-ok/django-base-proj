@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Use this command to upload data to your database'
 
     def handle(self, *args, **options):
-        path = options['path']
+        path = options['file']
         with open(path, 'r') as tsvfile:
             tsvreader = csv.reader(tsvfile, delimiter='\t')
             next(tsvfile)
@@ -27,8 +27,6 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             '--file',
-            action='store',
-            dest='path',
             required=True,
             help='Set absolute path to data file .tsv',
         )

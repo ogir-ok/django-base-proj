@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Use this command to upload data to your database'
 
     def handle(self, *args, **options):
-        path = options['path']
+        path = options['file']
         with open(path, 'r') as tsvfile:
             tsvreader = csv.reader(tsvfile, delimiter='\t')
             next(tsvfile)
@@ -18,18 +18,16 @@ class Command(BaseCommand):
                 if line[2] != '\\N':
                     person.birth_year = date(int(line[2]), 1, 1)
                 else:
-                    person.birth_year = date(1111, 1, 1)
+                    person.birth_year = None
                 if line[3] != '\\N':
                     person.death_year = date(int(line[3]), 1, 1)
                 else:
-                    person.death_year = date(1111, 1, 1)
+                    person.death_year = None
                 person.save()
 
     def add_arguments(self, parser):
         parser.add_argument(
             '--file',
-            action='store',
-            dest='path',
             required=True,
             help='Set absolute path to data file .tsv',
         )

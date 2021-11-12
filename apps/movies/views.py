@@ -9,8 +9,9 @@ def movies_list(request):
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    year = str(movie.year)[:4]
-    if year == '1111':
+    if movie.year is not None:
+        year = str(movie.year)[:4]
+    else:
         year = 'No data'
     person_movies = movie.personmovie_set.all()
     actors = []
@@ -26,6 +27,3 @@ def movie_detail(request, pk):
                                                                 'year': year,
                                                                 'person_movies': person_movies,
                                                                 'actors': actors})
-
-
-
