@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>List of movies</h1>
+    {% for movie in movies %}
+    <div class="row">
+        <div class="col-md-3">
+            <img src="https://i.guim.co.uk/img/media/3aab8a0699616ac94346c05f667b40844e46322f/0_123_5616_3432/master/5616.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=787f2043553cbb582a5b884880cc9b55" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3><a href="{% url 'movies:movie_detail' pk=movie.pk %}">{{ movie.name }}</a></h3>
+                <p>Tittle type: {{ movie.title_type }},
+                    released in: {{ movie.year }}
+                    {% if movie.is_adult %},  PG: 18 {% endif %} </p>
+                <p class="card-text">
+                    {% for genre in movie.genres %}
+                    <span class="badge bg-info text-dark">{{ genre }}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
