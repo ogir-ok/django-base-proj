@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from apps.movies.movies_contents import *
 
 # importing an arrayField :
 from django.contrib.postgres.fields import ArrayField
