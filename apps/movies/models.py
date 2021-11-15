@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Movie(models.Model):
-    imdb_id = models.CharField(_('tconst'), max_length=15, null=True, blank=True)
+    imdb_id = models.CharField(_('tconst'), max_length=10, null=True, blank=True)
 
     class TitleType(models.TextChoices):
         SHORT = 'SH', _('short')
@@ -18,15 +18,15 @@ class Movie(models.Model):
 
 
 class Person(models.Model):
-    imdb_id = models.CharField(_('nconst'), max_length=15, null=True, blank=True)
+    imdb_id = models.CharField(_('nconst'), max_length=10, null=True, blank=True)
     name = models.CharField(_('primaryName'), max_length=255, null=True, blank=True)
     birth_year = models.DateField(_('birthYear'), null=True, blank=True)
     death_year = models.DateField(_('deathYear'), null=True, blank=True)
 
 
 class PersonMovie(models.Model):
-    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, related_name='tconst', null=True, blank=True)
-    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='nconst', null=True, blank=True)
+    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, null=True, blank=True)
+    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, null=True, blank=True)
     order = models.IntegerField(_('ordering'), null=True, blank=True)
 
     class Category(models.TextChoices):
