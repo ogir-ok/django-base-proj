@@ -161,3 +161,7 @@ frontend/dist
 frontend-dist
 
 pgdata
+
+
+*.tsv
+

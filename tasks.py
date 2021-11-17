@@ -36,14 +36,14 @@ def createdb(ctx):
 @task
 def makedump(ctx):
     waitdb(ctx)
-    ctx.run(f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} pg_dump {DB_ARGS} > dump.sql")
+    ctx.run(f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} pg_dump {DB_ARGS} {settings.DATABASES['default']['NAME']} > dump.sql")
 
 
 @task
 def loaddump(ctx):
     dropdb(ctx)
     createdb(ctx)
-    ctx.run(f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} psql {DB_ARGS} < dump.sql")
+    ctx.run(f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} psql {DB_ARGS}  {settings.DATABASES['default']['NAME']} < dump.sql")
 
 
 @task
