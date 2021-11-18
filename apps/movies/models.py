@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from apps.movies.movies_contents import *
 
 # importing an arrayField :
 from django.contrib.postgres.fields import ArrayField
@@ -16,27 +15,30 @@ class Director(models.Model):
 
 # title.basic.tsv file
 class Movie(models.Model):
+    class TitleType(models.TextChoices):
+        SHORT = 'short', _('Short')
+        MOVIE = 'movie', _('Movie')
+
     # The Max Count Of Movies = 30.
-    imdb_id = models.CharField(_('tconst'), max_length=30)
+    imdb_id = models.CharField(_('imdb_id'), unique=True, max_length=255, null=True)
 
     # Title Type With Choices Of Short Movies Inside A List.
-    short_movies = [(1, 'Kung Fury'), (2, 'Piper'), (3, 'presto')]
-    title_type = models.CharField(_('titletype'), choices=short_movies, max_length=100)
+    title_type = models.CharField(_('Title_type'), max_length=80, choices=TitleType.choices, default=TitleType.SHORT)
 
     # Primary Title Of Random Movie From The List.
 
-    name = models.CharField(_('primaryTitle'), max_length=100)
+    name = models.CharField(_('Name'), max_length=255)
 
     # BooleanField IsAdult.
-    is_adult = models.BooleanField('IsAdult', max_length=5)
+    is_adult = models.BooleanField(_('IsAdult'), default=False)
 
     # Year Of The Movie.
-    year = models.DateField('startYear')
+    year = models.DateField(_('Release Year'), null=True)
 
     # 1- Genres As Array Field By Module ArrayField .
     # 2- Genres As Json Field By Installing jsonfield --> <pip install jsonfield> .
 
-    genres = ArrayField(ArrayField(models.CharField('genres', max_length=255)))
+    genres = ArrayField(models.CharField(max_length=255, default=list))
     # genres = JSONField() --> But For Easley We Can Use What Was Written Above :)
 
     director = models.ForeignKey(Director, on_delete=models.PROTECT)
