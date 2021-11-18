@@ -49,8 +49,8 @@ class PersonMovie(models.Model):
         STORY = 'ST', _('story')
         WRITER = 'WR', _('writer')
 
-    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, null=True)
-    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, null=True)
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT, null=True)
+    person = models.ForeignKey(Person, on_delete=models.PROTECT, null=True)
     order = models.IntegerField(_('ordering'), null=True)
     category = models.CharField(_('category'), choices=Category.choices, max_length=100, null=True)
     job = models.CharField(_('job'), choices=Job.choices, max_length=100, null=True)

@@ -39,6 +39,8 @@ class Command(BaseCommand):
                 except KeyError:
                     continue
 
+                print(person_movie_data)
+
                 try:
                     characters = json.loads(person_movie_data[5])
                 except JSONDecodeError:
@@ -52,11 +54,11 @@ class Command(BaseCommand):
                     category=person_movie_data[3],
                     job=person_movie_data[4],
                     characters=characters
-
                 )
-                movie, created = Movie.objects.get_or_create(imdb_id=person_movie_data[0])
+
                 person, created = Person.objects.get_or_create(imdb_id=person_movie_data[2])
-                person_movie, created = PersonMovie.objects.get_or_create(movie_id=movie, person_id=person,
+
+                person_movie, created = PersonMovie.objects.get_or_create(movie_id=movie_id, person=person,
                                                                           defaults=person_movie_dict)
                 PersonMovie.objects.filter(id=person_movie.id).update(**person_movie_dict)
                 person_movie.save()
