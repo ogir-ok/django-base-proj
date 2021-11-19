@@ -3,17 +3,15 @@
 {% block content %}
     <h1>List of movies</h1>
     <div class="row">
+        {% if request.user.is_authenticated %}
         <div class="col-md-3">
                 <div class="card-body">
-                    <h3>{{ movie.name }}</h3>
-                    <p>{{ movie.director }}, {{ movie.year }}</p>
-                    <p class="card-text">
-                        {% for genre in movie.genres %}
-                            <span class="badge bg-info text-dark">{{ genre }}</span>
-                        {% endfor %}
-                    </p>
+                    <a href="{% url 'movies:movie_add' %}">
+                        Add new movie
+                    </a>
                 </div>
         </div>
+        {% endif %}
         {% for movie in movies %}
             <div class="col-md-3">
                 <a href="{% url 'movies:movie_details' id=movie.id %}">

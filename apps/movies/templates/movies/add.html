@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>List of movies</h1>
+    <div class="row">
+    <form method="post">
+        {% csrf_token %}
+        {{ error }}
+        Name: <input name="name" value="{{ name }}"/>
+        Year: <input name="year" value="{{ year }}"/>
+        
+        Director: <select name="director">
+            <option value=""> N/A </option>
+        {% for person in persons %}
+            <option value="{{ person.id }}" {% if person.id == director %} selected {% endif %}>{{ person.name }}</option>
+        {% endfor %}
+    </select>
+
+        <input type="submit">
+    </form>
+    </div>
+{% endblock %}

@@ -17,14 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 import django.contrib.auth.urls
 
-from apps.movies.views import list_movies
+from apps.movies.views import movie_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
     path('authentication/', include('apps.authentication.urls', namespace='authentication')),
     path('movies/', include('apps.movies.urls', namespace='movies')),
-    path('', list_movies)
+    path('', movie_list)
 ]
 
 
