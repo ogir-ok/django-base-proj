@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ movie.name }}</h1>
+
+    <table>
+        <thead>
+
+        </thead>
+        <tbody>
+        {% for personmovie in movie.persons.all %}
+            <tr>
+                <td>{{ personmovie.person }}</td>
+                <td>{{ personmovie.category }}</td>
+                <td>{{ personmovie.job }}</td>
+                <td>{{ personmovie.characters|join:', '|default:'N/A' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
