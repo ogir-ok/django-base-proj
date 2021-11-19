@@ -622,6 +622,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$260000$TTgLaMDNkexl2ZnWWdN7na$eAhiJeXCBOcp0zvP16yd5l4okZWVukC68je2qvc9C4c=	2021-11-19 16:12:39.271487+00	t	admin			admin@admin.com	t	t	2021-11-19 16:12:29.382822+00
 \.
 
 
@@ -702,6 +703,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+zuampetv65efffl0k5ew7te71ut1b8b6	.eJxVjEEOwiAQRe_C2hA6QBlcuvcMZIBBqoYmpV0Z765NutDtf-_9lwi0rTVsnZcwZXEWgzj9bpHSg9sO8p3abZZpbusyRbkr8qBdXufMz8vh_h1U6vVbA6DWtpAqnshaBZbAGQaj_RATREI0RRFmRwbBYdZO-eh14jEzjEm8P8YwN3A:1mo6VD:X60qcK6VdRKZ3RRT8htgFa3SQ1yk-6_f9DsNHg7X2yY	2021-12-03 16:12:39.28566+00
 \.
 
 
@@ -963,6 +965,7 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 251	The Miser's Doom	{Horror,"Short\n"}	tt0000253	f	short	1899-01-01
 252	Monnaie de lapin	{Comedy,"Short\n"}	tt0000254	f	short	1899-01-01
 253	Mésaventure d'un charbonnier	{Comedy,"Short\n"}	tt0000255	f	short	1899-01-01
+382	Les clowns	{Comedy,"Short\n"}	tt0000385	f	short	1902-01-01
 254	Panorama from the Tower of the Brooklyn Bridge	{Documentary,"Short\n"}	tt0000256	f	short	1899-01-01
 255	La résurrection	{"Short\n"}	tt0000257	f	short	1899-01-01
 256	Le tondeur de chiens	{Comedy,"Short\n"}	tt0000258	f	short	1899-01-01
@@ -1091,7 +1094,6 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 379	Carnaval en las ramblas	{Documentary,"Short\n"}	tt0000382	f	short	1902-01-01
 380	Carreras de caballos en el hipódromo de Barcelona	{Documentary,"Short\n"}	tt0000383	f	short	1902-01-01
 381	Les chiens savants	{Documentary,"Short\n"}	tt0000384	f	short	1902-01-01
-382	Les clowns	{Comedy,"Short\n"}	tt0000385	f	short	1902-01-01
 383	La cour des miracles	{Comedy,"Short\n"}	tt0000386	f	short	1902-01-01
 384	The Coronation of King Edward VII	{History,"Short\n"}	tt0000387	f	short	1902-01-01
 385	Danse excentrique	{"Short\n"}	tt0000388	f	short	1902-01-01
@@ -2121,6 +2123,7 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 1409	A Tragedy of the Olden Times	{Crime,Drama,"Short\n"}	tt0001420	f	short	1911-01-01
 1410	Le tragique amour de Mona Lisa	{Drama,"Short\n"}	tt0001421	f	short	1912-01-01
 1411	Trail to the West	{"\\\\N\n"}	tt0001422	f	movie	1910-01-01
+1540	Conscience	{Drama,"Short\n"}	tt0001552	f	short	1911-01-01
 1412	A Woman's Treachery	{Crime,Drama,"Short\n"}	tt0001423	f	short	1910-01-01
 1413	Trimming of Paradise Gulch	{Short,"Western\n"}	tt0001424	f	short	1910-01-01
 1414	True to His Duty	{Drama,"Short\n"}	tt0001425	f	short	1910-01-01
@@ -2185,6 +2188,7 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 1473	At the Duke's Command	{Drama,Romance,"Short\n"}	tt0001485	f	short	1911-01-01
 1474	At the Threshold of Life	{Drama,"Short\n"}	tt0001486	f	short	1911-01-01
 1475	The Christian Martyrs	{Drama,"Short\n"}	tt0001487	f	short	1911-01-01
+1541	A Conspiracy Against the King	{Drama,"Short\n"}	tt0001553	f	short	1911-01-01
 1476	The Hallucinations of Baron Munchausen	{Fantasy,"Short\n"}	tt0001488	f	short	1911-01-01
 1477	The Awakening of John Bond	{Drama,"Short\n"}	tt0001489	f	short	1911-01-01
 1478	Back to the Primitive	{Short,"Western\n"}	tt0001490	f	short	1911-01-01
@@ -2249,8 +2253,6 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 1537	The Codfish Industry in Newfoundland	{Documentary,"Short\n"}	tt0001549	f	short	1912-01-01
 1538	The Coffin Ship	{Adventure,"Short\n"}	tt0001550	f	short	1911-01-01
 1539	Comrades	{Comedy,"Short\n"}	tt0001551	f	short	1911-01-01
-1540	Conscience	{Drama,"Short\n"}	tt0001552	f	short	1911-01-01
-1541	A Conspiracy Against the King	{Drama,"Short\n"}	tt0001553	f	short	1911-01-01
 1542	The Corporation and the Ranch Girl	{Short,"Western\n"}	tt0001554	f	short	1911-01-01
 1543	Cortejo Cívico	{"\\\\N\n"}	tt0001555	f	movie	1911-01-01
 1544	The Count and the Cowboys	{Comedy,Short,"Western\n"}	tt0001556	f	short	1911-01-01
@@ -10694,6 +10696,7 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 6161	4	actor	\\N	{Dean}	1432	1227
 6162	5	writer	play "Wermlenningarne"	{}	1432	1228
 6163	6	cinematographer	\\N	{}	1432	1229
+6247	5	director	\\N	{}	1445	827
 6164	7	actor	\\N	{"Sven Erson in Hult"}	1432	1230
 6165	8	actress	\\N	{"Lisa, Wife of Sven Ersson"}	1432	1231
 6166	9	actor	\\N	{"Ola in Gyllby"}	1432	1232
@@ -10777,7 +10780,6 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 6244	2	actor	\\N	{"Hr. Fleuriot"}	1445	518
 6245	3	actor	\\N	{}	1445	517
 6246	4	actress	\\N	{}	1445	839
-6247	5	director	\\N	{}	1445	827
 6248	6	writer	play "Madame X"	{}	1445	1236
 6249	7	cinematographer	\\N	{}	1445	319
 6250	8	actor	\\N	{}	1445	781
@@ -11023,6 +11025,7 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 6490	6	cinematographer	\\N	{}	1486	1297
 6491	7	actress	\\N	{"Lt. Prescott's Fiancée"}	1486	545
 6492	8	actor	\\N	{"Undetermined Role"}	1486	1298
+6572	3	actor	\\N	{}	1500	920
 6493	10	actor	\\N	{"A Union Officer","At Farewell"}	1487	685
 6494	1	actor	\\N	{"The Boy - the Cowardly Soldier"}	1487	863
 6495	2	actress	\\N	{"The Boy's Sweetheart"}	1487	695
@@ -11102,7 +11105,6 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 6569	5	cinematographer	\\N	{}	1499	1320
 6570	1	actor	\\N	{"The Border Ranger"}	1500	203
 6571	2	actress	\\N	{"The Ranger's Girl"}	1500	918
-6572	3	actor	\\N	{}	1500	920
 6573	4	actor	\\N	{}	1500	921
 6574	1	actor	\\N	{}	1501	1321
 6575	2	actor	\\N	{}	1501	845
@@ -11679,6 +11681,7 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 7146	1	actor	\\N	{"Einar Lowe",Othello}	1611	998
 7147	2	actress	\\N	{"Maria Lowe",Desdemona}	1611	1442
 7148	3	actor	\\N	{}	1611	663
+7308	2	actress	\\N	{}	1641	957
 7149	4	actor	\\N	{"Preben Winge - Actor"}	1611	1443
 7150	5	director	\\N	{}	1611	689
 7151	6	writer	\\N	{}	1611	1444
@@ -11839,7 +11842,6 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 7305	8	actor	\\N	{"A Servant"}	1640	1073
 7306	9	actor	\\N	{Courtier}	1640	567
 7307	1	actor	\\N	{}	1641	572
-7308	2	actress	\\N	{}	1641	957
 7309	3	actor	\\N	{}	1641	946
 7310	4	director	\\N	{}	1641	467
 7311	5	cinematographer	\\N	{}	1641	49
@@ -13228,6 +13230,7 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 8695	8	actor	\\N	{"Tom's Horse"}	1900	1705
 8696	1	director	\\N	{}	1901	718
 8697	10	actor	\\N	{"A Policeman"}	1902	524
+8857	1	actor	\\N	{}	1930	203
 8698	1	actor	\\N	{"The District Attorney"}	1902	572
 8699	2	actress	\\N	{"The District Attorney's Son"}	1902	1249
 8700	3	actor	\\N	{Dick}	1902	958
@@ -13387,7 +13390,6 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 8854	8	actress	\\N	{}	1929	414
 8855	9	actress	\\N	{}	1929	508
 8856	10	actor	\\N	{}	1930	924
-8857	1	actor	\\N	{}	1930	203
 8858	2	actress	\\N	{}	1930	918
 8859	3	actor	\\N	{}	1930	676
 8860	4	actor	\\N	{}	1930	920
@@ -13470,6 +13472,7 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 8937	10	actor	\\N	{}	1942	1732
 8938	1	actress	\\N	{Yvonne}	1942	883
 8939	2	actor	\\N	{"Marquis de Bougival"}	1942	1526
+9183	9	actor	\\N	{}	1981	676
 8940	3	actor	\\N	{"Lieutenant von Mallwitz"}	1942	1733
 8941	4	actor	\\N	{"Vujrat, leader of the partisans"}	1942	1525
 8942	5	director	\\N	{}	1942	887
@@ -13713,7 +13716,6 @@ COPY public.movies_personmovie (id, "order", category, job, characters, movie_id
 9180	6	actress	\\N	{}	1981	922
 9181	7	actor	\\N	{}	1981	921
 9182	8	actor	\\N	{}	1981	924
-9183	9	actor	\\N	{}	1981	676
 9184	1	actor	\\N	{"Alkali Ike"}	1982	923
 9185	2	actress	\\N	{Sophie}	1982	922
 9186	3	actor	\\N	{}	1982	924
@@ -13871,7 +13873,7 @@ SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
 
 
 --
