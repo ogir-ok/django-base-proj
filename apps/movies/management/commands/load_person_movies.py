@@ -1,6 +1,8 @@
+import sys
 from django.core.management.base import BaseCommand
 from apps.movies.models import *
 import csv
+import os
 
 
 class Command(BaseCommand):
@@ -8,20 +10,29 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         path = options['file']
+        if not os.path.exists(path):
+            print(f'No file {path} found')
+            sys.exit(1)
         with open(path, 'r') as tsvfile:
             tsvreader = csv.reader(tsvfile, delimiter='\t')
             next(tsvfile)
-            for line in tsvreader:
-                movie, created = Movie.objects.get_or_create(imdb_id=line[0])
-                person, created = Person.objects.get_or_create(imdb_id=line[2])
-                person_movie, created = PersonMovie.objects.get_or_create(movie_id=movie, person_id=person)             # person_movie.movie_id = line[0]
-                person_movie.order = int(line[1])
-                person_movie.category = line[3]
-                person_movie.job = line[4]
-                if line[-1] == '\\N':
-                    person_movie.characters = list(line[-1].split(','))
+            for person_movie_data in tsvreader:
+                try:
+                    movie = Movie.objects.get(imdb_id=person_movie_data[0])
+                except movie.DoesNotExist:
+                    continue
+                try:
+                    person = Person.objects.get(imdb_id=person_movie_data[2])
+                except person.DoesNotExist:
+                    continue
+                person_movie, created = PersonMovie.objects.get_or_create(movie_id=movie, person_id=person)
+                person_movie.order = int(person_movie_data[1])
+                person_movie.category = person_movie_data[3]
+                person_movie.job = person_movie_data[4]
+                if person_movie_data[-1] == '\\N':
+                    person_movie.characters = list(person_movie_data[-1].split(','))
                 else:
-                    person_movie.characters = list(line[-1][2:-2].split(','))
+                    person_movie.characters = list(person_movie_data[-1][2:-2].split(','))
                 person_movie.save()
 
     def add_arguments(self, parser):

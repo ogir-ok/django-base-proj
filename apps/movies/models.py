@@ -4,12 +4,11 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Movie(models.Model):
-    imdb_id = models.CharField(_('tconst'), max_length=10, null=True, blank=True)
-
     class TitleType(models.TextChoices):
         SHORT = 'SH', _('short')
         MOVIE = 'MOV', _('movie')
 
+    imdb_id = models.CharField(_('tconst'), max_length=10, null=True, blank=True)
     title_type = models.CharField(_('titleType'), choices=TitleType.choices, max_length=5, null=True, blank=True)
     name = models.CharField(_('primaryTitle'), max_length=255, null=True, blank=True)
     is_adult = models.BooleanField(_('isAdult'), null=True, blank=True)
@@ -25,10 +24,6 @@ class Person(models.Model):
 
 
 class PersonMovie(models.Model):
-    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, null=True, blank=True)
-    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, null=True, blank=True)
-    order = models.IntegerField(_('ordering'), null=True, blank=True)
-
     class Category(models.TextChoices):
         ACTOR = 'AC-R', _('actor')
         ACTRESS = 'AC-S', _('actress')
@@ -39,8 +34,6 @@ class PersonMovie(models.Model):
         PRODUCER = 'PR', _('producer')
         SELF = 'SEL', _('self')
         WRITER = 'WR', _('writer')
-
-    category = models.CharField(_('category'), choices=Category.choices, max_length=100, null=True, blank=True)
 
     class Job(models.TextChoices):
         CO_DIRECTOR = 'CO-D', _('co-director')
@@ -55,5 +48,9 @@ class PersonMovie(models.Model):
         STORY = 'ST', _('story')
         WRITER = 'WR', _('writer')
 
+    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, null=True, blank=True)
+    person_id = models.ForeignKey(Person, on_delete=models.PROTECT, null=True, blank=True)
+    order = models.IntegerField(_('ordering'), null=True, blank=True)
+    category = models.CharField(_('category'), choices=Category.choices, max_length=100, null=True, blank=True)
     job = models.CharField(_('job'), choices=Job.choices, max_length=100, null=True, blank=True)
     characters = ArrayField(models.CharField(_('characters'), max_length=255), null=True, blank=True)
