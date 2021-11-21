@@ -3,97 +3,21 @@
 {% block content %}
     <h1>List of movies</h1>
     <div class="row">
+        {% for movie in movies %}
         <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
+            <a href="{% url 'movies:details_movies' id=movie.id %}">
+                <img src="https://memegenerator.net/img/instances/56647155/what-if-i-told-you-python-is-fun.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3>{{ movie.name }}</h3>
+                         <p>{{ movie.director }}, {{ movie.year }}</p>
+                        <p class="card-text">
+                        {% for genre in movie.genres %}
+                            <span class="badge bg-info text-dark">{{ genre }}</span>
+                        {% endfor %}
+                         </p>
+                    </div>
+            </a>
         </div>
-        <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>Kin-dza-dza</h3>
-                <p>George Danelia, 2h 3m</p>
-                <p class="card-text">
-                    <span class="badge bg-info text-dark">adventure</span>
-                    <span class="badge bg-info text-dark">science fiction</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                    <span class="badge bg-info text-dark">genre</span>
-                </p>
-            </div>
-        </div>
-
+        {% endfor %}
     </div>
 {% endblock %}
