@@ -1,24 +1,48 @@
-from django.shortcuts import render, get_object_or_404
-from apps.movies.models import Movie
+import datetime
+import logging
+from time import sleep
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse_lazy
+
+from apps.movies.forms import MovieForm, PersonForm
+from apps.movies.models import Movie, Person
+
+logger = logging.getLogger(__name__)
 
 
 def list_movies(request):
-    movies = Movie.objects.order_by('imdb_id')
-    return render(request, 'movies/movies_list.html', context={'movies': movies})
+    return render(request, 'movies/movies_list.html', context={'movies': Movie.objects.order_by('-year').all()[:20]})
 
 
-def movie_detail(request, pk):
-    movie = get_object_or_404(Movie, pk=pk)
-    if movie.year is None:
-        year = 'unknown'
+def movie_details(request, **kwargs):
+    return render(request, 'movies/movie_detail.html', context={'movie': Movie.objects.get(id=kwargs.get('id'))})
+
+
+def movie_add(request):
+    if request.method == 'POST':
+        form_movie = MovieForm(request.POST)
+        if form_movie.is_valid():
+            movie = Movie.objects.create(name=form_movie.data['name'], year=form_movie.data['year'])
+            return HttpResponseRedirect(reverse_lazy('movies:movie_details', kwargs={'id': movie.id}))
     else:
-        year = str(movie.year)
-    person_in_movies = movie.personmovie_set.all()
-    actor = []
-    for person in person_in_movies:
-        if person.category in ['actor', 'actress'] and person.person_id.name is not None:
-            actor.append(person.person_id.name)
-    if len(actor) == 0:
-        actor.append('unknown')
-    return render(request, 'movies/movie_detail.html',
-                  context={'movie': movie, 'year': year, 'person_movies': person_in_movies, 'actors': actor})
+        form_movie = MovieForm()
+    return render(request, 'movies/movie_add.html', context={'form': form_movie})
+
+
+def person_add(request):
+    if request.method == 'POST':
+        form_person = PersonForm(request.POST)
+        if form_person.is_valid():
+            person = Person.objects.create(name=form_person.data['name'], birth_year=form_person.data['birth_year'])
+            return HttpResponseRedirect(reverse_lazy('movies:list_movies'))
+    else:
+        form_person = PersonForm()
+    return render(request, 'movies/person_add.html', context={'form': form_person})
+
+
+def long_running(request):
+    logger.error('starting...')
+    sleep(10)
+    logger.error('Ok')
+    return HttpResponse('Ok')
