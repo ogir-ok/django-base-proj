@@ -1,10 +1,8 @@
-import datetime
 import logging
 from time import sleep
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
 from apps.movies.forms import MovieForm, PersonForm
 from apps.movies.models import Movie, Person
 
@@ -40,6 +38,8 @@ def person_add(request):
         form_person = PersonForm()
     return render(request, 'movies/person_add.html', context={'form': form_person})
 
+def movie_and_person_rank(request):
+    pass
 
 def long_running(request):
     logger.error('starting...')
