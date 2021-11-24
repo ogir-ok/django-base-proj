@@ -38,8 +38,10 @@ def person_add(request):
         form_person = PersonForm()
     return render(request, 'movies/person_add.html', context={'form': form_person})
 
+
 def movie_and_person_rank(request):
-    pass
+    return render(request, 'movies/movie and person rank.html')
+
 
 def long_running(request):
     logger.error('starting...')

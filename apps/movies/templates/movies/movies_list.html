@@ -3,6 +3,15 @@
 {% block content %}
     <h1>List of movies</h1>
     <div class="row">
+        <div class="col-md-3">
+            <div class="card-body">
+                <a href="{% url 'movies:movie_and_person_rank' %}">
+                    Movies and actor rank
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         {% if request.user.is_authenticated %}
         <div class="col-md-3">
                 <div class="card-body">
@@ -18,8 +27,8 @@
                     </a>
                 </div>
             </div>
-
         {% endif %}
+    </div>
         {% for movie in movies %}
             <div class="col-md-3">
                 <a href="{% url 'movies:movie_details' id=movie.id %}">
