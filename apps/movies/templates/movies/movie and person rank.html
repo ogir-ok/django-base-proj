@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-Hello
+    {% for d in data %}
+        <div class="row">
+            <h4>{{ d|join:', '|default:'N/A'}}</h4>
+        </div>
+    {% endfor %}
 {% endblock %}
