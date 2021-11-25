@@ -20,16 +20,17 @@
                     </a>
                 </div>
         </div>
-            <div class="col-md-3">
+        <div class="col-md-3">
                 <div class="card-body">
                     <a href="{% url 'movies:person_add' %}">
                         Add new person
                     </a>
                 </div>
-            </div>
+        </div>
         {% endif %}
     </div>
         {% for movie in movies %}
+
             <div class="col-md-3">
                 <a href="{% url 'movies:movie_details' id=movie.id %}">
                 <img src="https://memegenerator.net/img/instances/66386966.jpg" class="card-img-top" alt="...">
@@ -45,5 +46,4 @@
                 </a>
             </div>
         {% endfor %}
-    </div>
 {% endblock %}
