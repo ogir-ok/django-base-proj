@@ -5,17 +5,7 @@
     <div class="row">
     <form method="post">
         {% csrf_token %}
-        {{ error }}
-        Name: <input name="name" value="{{ name }}"/>
-        Year: <input name="year" value="{{ year }}"/>
-        
-        Director: <select name="director">
-            <option value=""> N/A </option>
-        {% for person in persons %}
-            <option value="{{ person.id }}" {% if person.id == director %} selected {% endif %}>{{ person.name }}</option>
-        {% endfor %}
-    </select>
-
+        {{ form.as_p }}
         <input type="submit">
     </form>
     </div>
