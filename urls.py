@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.movies.views import list_movies
+from apps.movies.views import MovieList
 import django.contrib.auth.urls
 
 urlpatterns = [
@@ -23,5 +23,6 @@ urlpatterns = [
     path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
     path('authentication/', include('apps.authentication.urls', namespace='authentication')),
     path('movies/', include('apps.movies.urls', namespace='movies')),
-    path('', list_movies)
+    path('select2/', include('django_select2.urls')),
+    path('', MovieList.as_view())
 ]

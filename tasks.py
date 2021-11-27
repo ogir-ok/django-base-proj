@@ -49,4 +49,6 @@ def loaddump(ctx):
 @task
 def run(ctx):
     ctx.run('python manage.py migrate')
+    ctx.run('python manage.py makemigrations')
+    ctx.run('python manage.py migrate')
     ctx.run('python manage.py runserver 0.0.0.0:8000')
