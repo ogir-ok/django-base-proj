@@ -29,7 +29,7 @@ class Movie(models.Model):
 
 
 class Person(models.Model):
-    imdb_id = models.CharField(_('nconst'),unique=True, max_length=10, null=True, blank=True)
+    imdb_id = models.CharField(_('nconst'), max_length=10, null=True, blank=True)
     name = models.CharField(_('primaryName'), max_length=255, null=True)
     birth_year = models.DateField(_('birthYear'), null=True)
     death_year = models.DateField(_('deathYear'), null=True, blank=True)
