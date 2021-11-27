@@ -61,19 +61,18 @@ def movie_and_person_rank(request):
                             group by movies_person.id
                             order by rank desc;
                         """)
-    movie_rank.execute("""SELECT movies_movie.name,sum(sq.occurences_count) as "rank"
-                        from movies_movie
-                        join movies_personmovie on movies_personmovie.movie_id = movies_movie.id
-                        left join (SELECT movies_person.id as "person_id", count(*) as "occurences_count"
+    movie_rank.execute("""SELECT movies_movie.name, sum(sq.occurences_count) as "rank" from movies_movie
+                                join movies_personmovie on movies_personmovie.movie_id = movies_movie.id
+                                left join(SELECT movies_person.id as "person_id", count(*) as "occurences_count" 
                                 from movies_person
-                                LEFT OUTER join public.movies_personmovie on movies_person.id = movies_personmovie.person_id
+                                left outer join public.movies_personmovie on movies_person.id = movies_personmovie.person_id
                                 where
                                     movies_personmovie.category = 'actor' or
                                     movies_personmovie.category = 'actress' or
                                     movies_personmovie.category = 'self'
-                                group by movies_person.id) as sq on sq.person_id = movies_personmovie.person_id
-                        group by movies_movie.id
-                        order by rank DESC;
+                                group by movies_person.id) as sq on sq.person_id = movies_personmovie.movie_id
+                                group by movies_movie.id
+                                order by rank Desc;
                     """)
     return render(request, 'movies/movie and person rank.html',
                   context={'data_movie': movie_rank,
