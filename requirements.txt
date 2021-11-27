@@ -2,3 +2,6 @@ Django==3.2.8
 psycopg2-binary==2.8.5
 ipython==7.28.0
 invoke==1.6.0
+Django-select2==7.9.0
+Django-bootstrap-form==3.4
+Django-bootstrap-pagination==1.7.1

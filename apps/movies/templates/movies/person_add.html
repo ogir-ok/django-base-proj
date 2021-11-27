@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
+
+
 
 {% block content %}
-    <h1>List of Person</h1>
-    <div class="row">
+    <h1>List of person</h1>
+    <div class="row" style="width: auto">
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit">
+            Name Person
+            {{ form.name }}
+            <p></p>
+            Birthday {{ form.birth_year }}
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
     </div>
 {% endblock %}

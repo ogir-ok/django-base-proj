@@ -1,6 +1,8 @@
 from .base import *
 import os
 
+STATIC_ROOT = '/static/'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
