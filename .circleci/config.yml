@@ -7,8 +7,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "install python3-pip"
-          command: "sudo apt-get update & sudo apt-get install python3-pip"
+          name: "update apt"
+          command: "sudo apt-get update"
+      - run:
+          name: "update apt"
+          command: "sudo apt-get install python3-pip"
 
       - run:
           name: "install deploy requierements"
