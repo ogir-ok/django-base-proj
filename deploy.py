@@ -63,7 +63,7 @@ def deploy():
     with open('deploy-key', 'w') as f:
         f.write(os.getenv('SSH_KEY'))
 
-    os.system('chmod 0500 deploy-key.pem')
+    os.system('chmod 0500 deploy-key')
 
     for instance in instances:
         deploy_host(instance)
