@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "install python3-pip"
+          command: "apt-get update & apt-get install python3-pip"
+  
+      - run:
           name: "install deploy requierements"
           command: "pip3 install pexpect boto3"
 
