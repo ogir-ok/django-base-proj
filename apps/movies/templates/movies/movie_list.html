@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
+{% load bootstrap_pagination %}
 
 {% block content %}
     <h1>List of movies</h1>
+    <form method="get">
+    <input name="q"  value="{{ request.GET.q }}"/>
+    <input type="submit" />
+    </form>
+    {% bootstrap_paginate page_obj range=10 %}
     <div class="row">
         {% if request.user.is_authenticated %}
         <div class="col-md-3">
@@ -12,9 +18,9 @@
                 </div>
         </div>
         {% endif %}
-        {% for movie in movies %}
+        {% for movie in object_list %}
             <div class="col-md-3">
-                <a href="{% url 'movies:movie_details' id=movie.id %}">
+                <a href="{% url 'movies:movie_details' pk=movie.id %}">
                 <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h3>{{ movie.name }}</h3>
@@ -29,4 +35,5 @@
             </div>
         {% endfor %}
     </div>
+    {% bootstrap_paginate page_obj range=10 %}
 {% endblock %}
