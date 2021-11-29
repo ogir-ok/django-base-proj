@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "install deploy requierements"
+          command: "pip3 install pexpect boto3"
+
+      - run:
           name: "start deploy"
           command: "python3 deploy.py"
 
