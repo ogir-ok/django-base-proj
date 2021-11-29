@@ -1,52 +1,45 @@
+from django.core.management.base import BaseCommand
+from apps.movies.models import Movie, Person, PersonMovie
 import json
+from json import JSONDecodeError
+import csv
 import os
 import sys
-from json import JSONDecodeError
-
-from django.core.management.base import BaseCommand
-
-from apps.movies.models import Person, Movie, PersonMovie
 
 
 class Command(BaseCommand):
-    def add_arguments(self, parser):
-        parser.add_argument('--file', '-f', required=True)
-        parser.add_argument('--delimeter', '-d', default='\t')
+    help = 'Use this command to upload data to your database'
 
     def handle(self, *args, **options):
-        filepath = options['file']
-        delimeter = options['delimeter']
+        path = options['file']
 
-        if not os.path.exists(filepath):
-            print(f'No file {filepath} found.')
+        if not os.path.exists(path):
+            print(f'No file {path} found')
             sys.exit(1)
-
 
         our_movies = Movie.objects.all()
         our_movies_dict = {}
-        for m in our_movies:
-            our_movies_dict[m.imdb_id] = m.id
+        for el in our_movies:
+            our_movies_dict[el.imdb_id] = el.id
 
-        with open(filepath) as f:
-            for line in f.readlines():
-                person_movie_data = line.split(delimeter)
-                if not person_movie_data[0].startswith('tt'):
-                    continue
+        with open(path, 'r') as tsvfile:
+            tsvreader = csv.reader(tsvfile, delimiter='\t')
+            next(tsvfile)
+
+            for person_movie_data in tsvreader:
 
                 try:
                     movie_id = our_movies_dict[person_movie_data[0]]
                 except KeyError:
                     continue
 
-                print(person_movie_data)
+                if person_movie_data[3] == '\\N':
+                    person_movie_data[3] = ''
 
                 try:
                     characters = json.loads(person_movie_data[5])
                 except JSONDecodeError:
                     characters = []
-
-                if person_movie_data[3] == '\\N':
-                    person_movie_data[3] = ''
 
                 person_movie_dict = dict(
                     order=person_movie_data[1],
@@ -57,6 +50,15 @@ class Command(BaseCommand):
 
                 person, created = Person.objects.get_or_create(imdb_id=person_movie_data[2])
 
-                person_movie, created = PersonMovie.objects.get_or_create(movie_id=movie_id, person=person, defaults=person_movie_dict)
+                person_movie, created = PersonMovie.objects.get_or_create(movie_id=movie_id,
+                                                                          person_id=person,
+                                                                          defaults=person_movie_dict)
+
                 PersonMovie.objects.filter(id=person_movie.id).update(**person_movie_dict)
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--file',
+            required=True,
+            help='Set absolute path to data file .tsv',
+        )

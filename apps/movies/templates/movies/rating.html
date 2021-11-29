@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <h1>Ratings</h1>
+    <h2>Actors rating:</h2>
+    {% for el in actors_rating %}
+    {{ el.name }}: {{ el.num_movies }} point(s)<br>
+    {% endfor %}
+    <h2>Movies rating:</h2>
+    {% for el in movies_rating %}
+    {{ el|join:': ' }} point(s)<br>
+    {% endfor %}
+
+{% endblock %}

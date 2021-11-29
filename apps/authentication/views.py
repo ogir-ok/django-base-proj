@@ -5,6 +5,7 @@ from apps.movies.models import Movie
 
 User = get_user_model()
 
+
 @login_required
 def my_view(request):
     return render(request, 'authentication/base.html')

@@ -2,25 +2,29 @@
 
 {% block content %}
     <h1>List of movies</h1>
-    <div class="row">
+     <div class="row">
+        {% if request.user.is_authenticated %}
         <div class="col-md-3">
                 <div class="card-body">
-                    <h3>{{ movie.name }}</h3>
-                    <p>{{ movie.director }}, {{ movie.year }}</p>
-                    <p class="card-text">
-                        {% for genre in movie.genres %}
-                            <span class="badge bg-info text-dark">{{ genre }}</span>
-                        {% endfor %}
-                    </p>
+                    <a href="{% url 'movies:movie_add' %}">Add new movie</a>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'movies:person_add' %}">Add new person</a>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'movies:rating' %}">Rating</a>
                 </div>
         </div>
+        {% endif %}
         {% for movie in movies %}
             <div class="col-md-3">
                 <a href="{% url 'movies:movie_details' id=movie.id %}">
                 <img src="https://i.ytimg.com/vi/z9qOOfVipdw/hqdefault.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h3>{{ movie.name }}</h3>
-                    <p>{{ movie.director }}, {{ movie.year }}</p>
+                    <p>Directed by: {{ movie.director }},
+                        released in: {{ movie.year }}
+                        {% if movie.is_adult %},  PG: 18 {% endif %}</p>
                     <p class="card-text">
                         {% for genre in movie.genres %}
                             <span class="badge bg-info text-dark">{{ genre }}</span>
@@ -30,5 +34,6 @@
                 </a>
             </div>
         {% endfor %}
+        </div>
     </div>
 {% endblock %}

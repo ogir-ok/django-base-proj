@@ -2,18 +2,17 @@
 
 {% block content %}
     <h1>{{ movie.name }}</h1>
-
+    <h3>Participants:</h3>
     <table>
         <thead>
-
         </thead>
         <tbody>
-        {% for personmovie in movie.persons.all %}
+        {% for personmovie in movie.personmovie_set.all %}
             <tr>
-                <td>{{ personmovie.person }}</td>
-                <td>{{ personmovie.category }}</td>
-                <td>{{ personmovie.job }}</td>
-                <td>{{ personmovie.characters|join:', '|default:'N/A' }}</td>
+            <td>{{ personmovie.person }}</td>
+            <td>{{ personmovie.category }}</td>
+            <td>{{ personmovie.job|join:','|default:'N/A'}}</td>
+            <td>{{ personmovie.characters|join:', '|default:'N/A' }}</td>
             </tr>
         {% endfor %}
         </tbody>
