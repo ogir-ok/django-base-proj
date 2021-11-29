@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 
 from apps.movies.forms import MovieForm
 from apps.movies.models import Movie, Person, PersonMovie
+from django.db import connection
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,43 @@ def movie_add(request):
     else:
         form = MovieForm()
     return render(request, 'movies/add.html', context={'form': form})
+
+
+def movie_rating(request):
+    cursor_m = connection.cursor()
+
+    cursor_m.execute("""SELECT "movies_movie"."name", avg(sq.occurences_count) as "rating" FROM movies_movie
+                      JOIN movies_personmovie on movies_personmovie.movie_id = movies_movie.id
+                      LEFT JOIN (SELECT movies_person.id as person_id, count( * ) as "occurences_count" from movies_person
+                      LEFT OUTER JOIN movies_personmovie on movies_person.id = movies_personmovie.person_id
+                      WHERE
+                            movies_personmovie.category = 'actor' or 
+                            movies_personmovie.category = 'actress' or 
+                            movies_personmovie.category = 'self'  
+                      GROUP by movies_person.id) as sq on sq.person_id = movies_personmovie.person_id
+    
+                      GROUP by movies_movie.id order by rating DESC;""")
+
+    cursor_a = connection.cursor()
+
+    cursor_a.execute("""SELECT "movies_person"."name", avg(sq.occurences_count) as "rating" FROM movies_person
+                            JOIN movies_personmovie on movies_personmovie.person_id = movies_person.id
+                            LEFT JOIN (SELECT movies_movie.id as movie_id, count( * ) as "occurences_count" from movies_movie
+                            LEFT OUTER JOIN public.movies_personmovie on movies_movie.id = movies_personmovie.movie_id
+                            WHERE
+                                movies_personmovie.category = 'actor' or 
+                                movies_personmovie.category = 'actress' 
+
+                            GROUP by movies_movie.id) as sq on sq.movie_id = movies_personmovie.movie_id
+
+                            GROUP by movies_person.id order by rating DESC;""")
+
+
+
+    return render(request, 'movies/rating.html', context={'cursor_m': cursor_m, 'cursor_a': cursor_a})
+
+
+
 
 def long_running(request):
     logger.error('starting...')
