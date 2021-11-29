@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div id="wrap">
+        <div id="left_col">
+            <h1>Rating actors</h1>
+            {% for actor in cursor_a %}
+                {{ actor|join:': '|default:'N/A' }}
+            <br>
+            {% endfor %}
+        </div>
+        <div id="right_col">
+            <h1>Rating movies</h1>
+            {% for movie in cursor_m %}
+                {{ movie|join:': '|default:'N/A' }}
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+
+     <style type="text/css">
+    #wrap {
+       width:2000px;
+       margin:0 auto;
+    }
+    #left_col {
+       float:left;
+       width:300px;
+    }
+    #right_col {
+       float:right;
+       width:300px;
+    }
+    </style>
+{% endblock %}
