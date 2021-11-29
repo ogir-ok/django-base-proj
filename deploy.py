@@ -5,7 +5,7 @@ import logging
 import argparse
 import pexpect
 import boto3
-
+from IPython.lib.clipboard import osx_clipboard_get
 
 logging.basicConfig(level=logging.INFO)
 
@@ -64,6 +64,8 @@ def deploy():
 
     with open('deploy-key.pem', 'w') as f:
         f.write(os.getenv('SSH_KEY'))
+
+    os.system('chmod 0500 deploy-key.pem')
 
     for instance in instances:
         deploy_host(instance)
