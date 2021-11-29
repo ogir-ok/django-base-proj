@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: "start deploy"
-          command: "python deploy.py"
+          command: "python3 deploy.py"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
