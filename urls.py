@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import django.contrib.auth.urls
+
+from apps.movies.views import MovieListView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
     path('authentication/', include('apps.authentication.urls', namespace='authentication')),
-    path('', include('apps.movies.urls', namespace='movies')),
+    path('movies/', include('apps.movies.urls', namespace='movies')),
+    path("select2/", include("django_select2.urls")),
+    path('', MovieListView.as_view())
 ]
 
 
