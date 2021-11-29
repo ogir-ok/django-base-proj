@@ -2,10 +2,8 @@
 import os
 import sys
 import logging
-import argparse
 import pexpect
 import boto3
-from IPython.lib.clipboard import osx_clipboard_get
 
 logging.basicConfig(level=logging.INFO)
 
