@@ -10,13 +10,16 @@ jobs:
           name: "update apt"
           command: "sudo apt-get update"
       - run:
-          name: "update apt"
+          name: "Install python3-pip"
           command: "sudo apt-get install python3-pip"
 
       - run:
           name: "install deploy requierements"
           command: "pip3 install pexpect boto3"
 
+      - add_ssh_keys:
+          fingerprints:
+            - "9e:f2:fe:9e:8e:c4:f9:10:df:fb:bc:d1:28:28:21:e0"
       - run:
           name: "start deploy"
           command: "python3 deploy.py"

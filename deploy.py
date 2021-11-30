@@ -11,7 +11,7 @@ class Pexpect:
     def __init__(self, host, default_expect='ubuntu@', timeout=300):
         self.host = host
         self.default_expect = default_expect
-        self.child = pexpect.spawn('ssh -i deploy-key -o StrictHostKeyChecking=no ubuntu@{}'.format(host), timeout=timeout, encoding='utf-8')
+        self.child = pexpect.spawn('ssh -o StrictHostKeyChecking=no ubuntu@{}'.format(host), timeout=timeout, encoding='utf-8')
         self.child.logfile = sys.stdout
         self.child.expect(default_expect)
 
@@ -59,13 +59,6 @@ def deploy_host(instance):
 
 def deploy():
     instances = find_instances()
-
-    with open('deploy-key', 'w') as f:
-        f.write('-----BEGIN OPENSSH PRIVATE KEY-----\n')
-        f.write('\n'.join(os.getenv('SSH_KEY').split()) + '\n')
-        f.write('-----END OPENSSH PRIVATE KEY-----')
-
-    os.system('chmod 0500 deploy-key')
 
     for instance in instances:
         deploy_host(instance)
