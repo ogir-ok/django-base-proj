@@ -61,7 +61,7 @@ def deploy():
     instances = find_instances()
 
     with open('deploy-key', 'w') as f:
-        f.write(os.getenv('SSH_KEY'))
+        f.write('\n'.join(os.getenv('SSH_KEY').split()))
 
     os.system('chmod 0500 deploy-key')
 
