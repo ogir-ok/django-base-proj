@@ -13,3 +13,9 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ['name', 'year']
+
+
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ['name', 'birth_year', 'death_year', 'movies_participating']
