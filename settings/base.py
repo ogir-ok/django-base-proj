@@ -11,12 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from IPython.lib.clipboard import osx_clipboard_get
-
-
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent

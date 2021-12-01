@@ -2,7 +2,7 @@ import logging
 from time import sleep
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import *
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -40,7 +40,13 @@ class MovieAddView(LoginRequiredMixin, CreateView):
     template_name = 'movies/movie_add.html'
     model = Movie
     form_class = MovieForm
-    success_url = reverse_lazy('movies:movie_list')
+
+    def post(self, request):
+        form = MovieForm(request.POST)
+        if form.is_valid():
+            movie = form.save()
+            return HttpResponseRedirect(reverse_lazy('movies:movie_details', kwargs={'pk': movie.id}))
+        return render(request, 'movies/movie_add.html', context={'form': form})
 
 
 class PersonAddView(LoginRequiredMixin, CreateView):

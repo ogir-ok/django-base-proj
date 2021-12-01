@@ -16,7 +16,7 @@ class MovieForm(forms.ModelForm):
         YEAR_CHOICES = list(range(1800,2050))
         widgets = {
             'year': forms.SelectDateWidget(years=YEAR_CHOICES),
-            'persons_participating': PersonWidget
+            'persons_participating': PersonWidget()
         }
 
 

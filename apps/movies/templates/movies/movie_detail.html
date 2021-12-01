@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% with movie=object %}
     <h1>{{ movie.name }}</h1>
 
     <table>
@@ -18,5 +19,6 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endwith %}
     {{ formset_factory.as_p }}
 {% endblock content %}
