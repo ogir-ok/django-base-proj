@@ -41,7 +41,7 @@ class MovieAddView(LoginRequiredMixin, CreateView):
     model = Movie
     form_class = MovieForm
 
-    def post(self, request):
+    def post(self, request, **kwargs):
         form = MovieForm(request.POST)
         if form.is_valid():
             movie = form.save()
@@ -71,7 +71,8 @@ def movie_and_person_rank(request):
                                 join movies_personmovie on movies_personmovie.movie_id = movies_movie.id
                                 left join(SELECT movies_person.id as "person_id", count(*) as "occurences_count" 
                                 from movies_person
-                                left outer join public.movies_personmovie on movies_person.id = movies_personmovie.person_id
+                                left outer join public.movies_personmovie
+                                on movies_person.id = movies_personmovie.person_id
                                 where
                                     movies_personmovie.category = 'actor' or
                                     movies_personmovie.category = 'actress' or
@@ -86,7 +87,8 @@ def movie_and_person_rank(request):
 
 
 class LongRunning(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         logger.error('starting...')
         sleep(10)
         logger.error('Ok')
