@@ -50,12 +50,14 @@ def loaddump(ctx):
 @task
 def run(ctx):
     ctx.run('./manage.py migrate')
+    ctx.run('./manage.py collectstatic')
 
     cmd = ('uwsgi --http 0.0.0.0:8000 --master '
            '--module "django.core.wsgi:get_wsgi_application()" '
            '--processes 2 '
            '--offload-threads 4 '
-           '--enable-threads')
+           '--enable-threads '
+           '--static-map /static=/static')
 
     if os.getenv('PY_AUTORELOAD'):
         cmd += ' --py-autoreload 1'
