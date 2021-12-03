@@ -15,8 +15,8 @@ services:
       - 5432:5432
   web:
     build: .
-    environment:
-      - DJANGO_SETTINGS_MODULE=settings.prod
+    env_file:
+      - .env
     volumes:
       - .:/src
     command:
