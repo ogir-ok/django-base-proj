@@ -5,3 +5,5 @@ invoke==1.6.0
 django_select2==7.9.0
 django-bootstrap-form==3.4
 django-bootstrap-pagination==1.7.1
+
+uwsgi==2.0.20
