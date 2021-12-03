@@ -27,7 +27,6 @@ services:
       - db
     expose:
       - 8000
-
   nginx:
     image: nginx
     links:
