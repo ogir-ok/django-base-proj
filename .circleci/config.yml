@@ -20,6 +20,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "9e:f2:fe:9e:8e:c4:f9:10:df:fb:bc:d1:28:28:21:e0"
+
       - run:
           name: "start deploy"
           command: "python3 deploy.py"
