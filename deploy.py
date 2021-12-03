@@ -42,7 +42,7 @@ def deploy_host(instance):
     docker_compose_file = os.getenv('DOCKER_COMPOSE_FILE', 'docker-prod.yml')
     docker_compose = 'docker-compose -f {}'.format(docker_compose_file)
     expect_value = os.getenv('EXPECT_VALUE', 'ubuntu@')
-    deploy_version = 'main'
+    deploy_version = os.getenv('CIRCLE_SHA1')
 
     if not deploy_host or not deploy_version:
         raise ValueError('No env vars provided')
