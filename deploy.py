@@ -62,9 +62,6 @@ def deploy_host(instance):
 def deploy():
     instances = find_instances()
 
-    with open('~/.ssh/id_rsa', 'w') as f:
-        f.write(os.getenv('SSH_KEY'))
-
     for instance in instances:
         deploy_host(instance)
 
