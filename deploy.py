@@ -40,7 +40,7 @@ def find_instances():
 def deploy_host(instance):
     deploy_host = instance.public_ip_address
     docker_compose_file = os.getenv('DOCKER_COMPOSE_FILE', 'docker-prod.yml')
-    docker_compose = 'docker-compose -f {}'.format(docker_compose_file)
+    docker_compose = f'docker-compose -f {docker_compose_file}'
     expect_value = os.getenv('EXPECT_VALUE', 'ubuntu@')
     deploy_version = os.getenv('CIRCLE_SHA1')
 
