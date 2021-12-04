@@ -48,13 +48,13 @@ def deploy_host(instance):
         raise ValueError('No env vars provided')
 
     expect = Pexpect(deploy_host, default_expect=expect_value)
-    expect.cmd('pushd {}'.format('django-base-proj'))
-    expect.cmd('git fetch origin')
-    expect.cmd('git reset --hard')
-    expect.cmd('git checkout {}'.format(deploy_version))
-    expect.cmd('{} stop'.format(docker_compose))
-    expect.cmd('{} up -d'.format(docker_compose))
-    expect.cmd('exit', expect='logout')
+    expect.cmd(f"pushd {'django-base-proj'}")
+    expect.cmd(f'git fetch origin')
+    expect.cmd(f'git reset --hard')
+    expect.cmd(f'git checkout {docker_compose_file}')
+    expect.cmd(f'{docker_compose} stop')
+    expect.cmd(f'{docker_compose} up -d')
+    expect.cmd(f'exit', expect='logout')
 
 
 def deploy():
