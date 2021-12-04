@@ -1,3 +1,0 @@
-python manage.py load_movies  --file apps/movies/templates/csv/movies.csv
-python manage.py load_persons --file apps/movies/templates/csv/persons.csv
-python manage.py load_person_movies --file apps/movies/templates/csv/person_movies.csv
