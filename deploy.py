@@ -65,7 +65,7 @@ def deploy():
 
     for instance in instances:
         deploy_host(instance)
-        print(instance.public_ip_address)
+        return instance.public_ip_address
 
 
 
