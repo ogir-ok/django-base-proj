@@ -24,6 +24,8 @@ services:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
+    ports:
+      - 80:8000
   ngins:
     image: nginx
     volumes:
