@@ -61,7 +61,7 @@ def run(ctx):
     if os.getenv('PY_AUTORELOAD'):
         cmd += ' --py-autoreload 1'
     if os.getenv('BASICAUTH'):
-        cmd += ' --route "^/ basicauth:SR,{0}"'.format(os.getenv('BASICAUTH'))
+        cmd += f"' --route '^/ basicauth:SR,{os.getenv('BASICAUTH')}"
     if os.getenv('ENV') == 'dev':
         cmd += ' --honour-stdin'
     else:
