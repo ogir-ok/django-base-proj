@@ -1,9 +1,7 @@
+import os
 from time import sleep
-
 from invoke import task, exceptions
-
 from django.conf import settings
-
 
 DB_ARGS = f"-h {settings.DATABASES['default']['HOST']}" \
           f" -U {settings.DATABASES['default']['USER']}" \
@@ -36,19 +34,36 @@ def createdb(ctx):
 @task
 def makedump(ctx):
     waitdb(ctx)
-    ctx.run(f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} pg_dump {DB_ARGS} {settings.DATABASES['default']['NAME']} > dump.sql")
+    ctx.run(
+        f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} pg_dump {DB_ARGS} {settings.DATABASES['default']['NAME']} > dump.sql")
 
 
 @task
 def loaddump(ctx):
     dropdb(ctx)
     createdb(ctx)
-    ctx.run(f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} psql {DB_ARGS}  {settings.DATABASES['default']['NAME']} < dump.sql")
+    ctx.run(
+        f"PGPASSWORD={settings.DATABASES['default']['PASSWORD']} psql {DB_ARGS}  {settings.DATABASES['default']['NAME']} < dump.sql")
 
 
 @task
 def run(ctx):
     ctx.run('python manage.py migrate')
-    ctx.run('python manage.py makemigrations')
-    ctx.run('python manage.py migrate')
-    ctx.run('python manage.py runserver 0.0.0.0:8000')
+    ctx.run('python manage.py collectstatic --noinput')
+
+    cmd = ('uwsgi --http 0.0.0.0:8000 --master '
+           '--module "django.core.wsgi:get_wsgi_application()" '
+           '--processes 2 '
+           '--offload-threads 4 '
+           '--enable-threads '
+           '--static-map /static=/static')
+
+    if os.getenv('PY_AUTORELOAD'):
+        cmd += ' --py-autoreload 1'
+    if os.getenv('BASICAUTH'):
+        cmd += ' --route "^/ basicauth:SR,{0}"'.format(os.getenv('BASICAUTH'))
+    if os.getenv('ENV') == 'dev':
+        cmd += ' --honour-stdin'
+    else:
+        cmd += ' --harakiri 30'
+    ctx.run(cmd)
