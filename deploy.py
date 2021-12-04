@@ -30,7 +30,10 @@ class Pexpect:
 
 def find_instances():
     ec2 = boto3.resource(service_name='ec2', region_name='us-east-1')
-    running_instances = ec2.instances
+    running_instances = ec2.instances.filter(Filters=[
+        {'Name': 'instance-state-name', 'Values': ['running']},
+        {'Name': 'tag:Role', 'Values': ['movies-app']},
+    ])
     return running_instances
 
 
