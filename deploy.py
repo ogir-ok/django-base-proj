@@ -7,11 +7,13 @@ import boto3
 
 logging.basicConfig(level=logging.INFO)
 
+
 class Pexpect:
     def __init__(self, host, default_expect='ubuntu@', timeout=300):
         self.host = host
         self.default_expect = default_expect
-        self.child = pexpect.spawn('ssh -o StrictHostKeyChecking=no ubuntu@{}'.format(host), timeout=timeout, encoding='utf-8')
+        self.child = pexpect.spawn('ssh -o StrictHostKeyChecking=no ubuntu@{}'.format(host), timeout=timeout,
+                                   encoding='utf-8')
         self.child.logfile = sys.stdout
         self.child.expect(default_expect)
 
@@ -34,13 +36,6 @@ def find_instances():
         {'Name': 'instance-state-name', 'Values': ['running']},
         {'Name': 'tag:Role', 'Values': ['movies-app']},
     ])
-    for instance in ec2.instances.all():
-        print(
-            "Id: {0}\nPlatform: {1}\nType: {2}\nPublic IPv4: {3}\nAMI: {4}\nState: {5}\n".format(
-                instance.id, instance.platform, instance.instance_type, instance.public_ip_address, instance.image.id,
-                instance.state
-            )
-        )
     return running_instances
 
 
