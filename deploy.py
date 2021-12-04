@@ -61,7 +61,7 @@ def deploy():
     instances = find_instances()
 
     for instance in instances:
-        deploy_host(instance.public_ip_address)
+        deploy_host(instance)
 
 
 if __name__ == '__main__':
