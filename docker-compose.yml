@@ -16,14 +16,20 @@ services:
   web:
     build: .
     environment:
-      - DJANGO_SETTINGS_MODULE=settings.dev
+      - DJANGO_SETTINGS_MODULE=settings.prod
     volumes:
       - .:/src
     command:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
+    expose:
+      - 8000
+  ngins:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.com
     ports:
-      - 8000:8000
+      - 8000:80
 volumes:
   pgdata:
