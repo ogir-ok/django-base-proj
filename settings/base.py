@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_select2',
+    'bootstrapform',
+    'bootstrap_pagination',
+
     'apps.movies.apps.MoviesConfig',
     'apps.authentication.apps.AuthenticationConfig'
 ]
@@ -133,20 +137,4 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
