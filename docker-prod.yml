@@ -10,8 +10,6 @@ services:
       - ./media:/media
     command:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
-    links:
-      - db
     ports:
       - "8000:8000"
   nginx:
