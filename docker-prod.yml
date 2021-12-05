@@ -1,18 +1,5 @@
 version: "3"
 services:
-  db:
-    image: postgres:11.5
-    environment:
-      - POSTGRES_PASSWORD=123
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - POSTGRES_DB=movies
-      - POSTGRES_USER=postgres
-      - POSTGRES_HOST=db
-      - POSTGRES_PORT=5432
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
   web:
     build: .
     env_file:
@@ -32,7 +19,6 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     depends_on:
-        - db
         - web
     volumes:
       - .:/src
