@@ -29,7 +29,7 @@ services:
       - "8000:8000"
   nginx:
     build:
-      context: ./nginx
+      context: docker/nginx
       dockerfile: Dockerfile
     depends_on:
       - db
