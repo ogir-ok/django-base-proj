@@ -1,6 +1,7 @@
+import os
 from time import sleep
 
-from invoke import task, exceptions
+from invoke import task, exceptions, env
 
 from django.conf import settings
 
@@ -50,9 +51,6 @@ def loaddump(ctx):
 def run(ctx):
     print('Migrating db')
     ctx.run('./manage.py migrate')
-<<<<<<< Updated upstream
-    ctx.run('./manage.py runserver 0.0.0.0:8000')
-=======
     print('Collecting static')
     ctx.run('./manage.py collectstatic --noinput')
 
@@ -72,5 +70,3 @@ def run(ctx):
     else:
         cmd += ' --harakiri 30'
     ctx.run(cmd)
-
->>>>>>> Stashed changes

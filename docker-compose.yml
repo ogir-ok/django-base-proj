@@ -15,15 +15,28 @@ services:
       - 5432:5432
   web:
     build: .
-    environment:
-      - DJANGO_SETTINGS_MODULE=settings.dev
+    env_file:
+      - .env
     volumes:
       - .:/src
+      - ./static:/static
+      - ./media:/media
     command:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
+    expose:
+      - 8000
+  nginx:
+    image: nginx
+    links:
+      - web
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/static:ro
+      - ./media:/media:ro
     ports:
-      - 8000:8000
+      - 8000:80
+
 volumes:
   pgdata:
