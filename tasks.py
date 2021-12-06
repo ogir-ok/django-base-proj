@@ -48,5 +48,29 @@ def loaddump(ctx):
 
 @task
 def run(ctx):
+    print('Migrating db')
     ctx.run('./manage.py migrate')
+<<<<<<< Updated upstream
     ctx.run('./manage.py runserver 0.0.0.0:8000')
+=======
+    print('Collecting static')
+    ctx.run('./manage.py collectstatic --noinput')
+
+    cmd = ('uwsgi --http 0.0.0.0:8000 --master '
+           '--module "django.core.wsgi:get_wsgi_application()" '
+           '--processes 2 '
+           '--offload-threads 4 '
+           '--enable-threads '
+           '--static-map /static=/static')
+
+    if os.getenv('PY_AUTORELOAD'):
+        cmd += ' --py-autoreload 1'
+    if os.getenv('BASICAUTH'):
+        cmd += ' --route "^/ basicauth:SR,{0}"'.format(os.getenv('BASICAUTH'))
+    if os.getenv('ENV') == 'dev':
+        cmd += ' --honour-stdin'
+    else:
+        cmd += ' --harakiri 30'
+    ctx.run(cmd)
+
+>>>>>>> Stashed changes
