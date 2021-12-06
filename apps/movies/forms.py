@@ -24,7 +24,7 @@ class PersonMovieForm(forms.ModelForm):
         model = PersonMovie
         fields = ['order', 'category', 'job', 'characters']
 
-        fields = ['name', 'year']
+
 
 
 class PersonForm(forms.ModelForm):

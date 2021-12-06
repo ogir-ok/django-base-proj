@@ -33,6 +33,7 @@ class Person(models.Model):
     name = models.CharField(_('primaryName'), max_length=255, null=True, blank=True)
     birth_year = models.DateField(_('birthYear'), null=True, blank=True)
     death_year = models.DateField(_('deathYear'), null=True, blank=True)
+    movies_participating = models.ManyToManyField('movies.Movie', through='PersonMovie')
 
 
     def __str__(self):
