@@ -48,3 +48,4 @@ class PersonMovie(models.Model):
     category = models.CharField(_('category'), max_length=100, null=True, blank=True)
     job = models.CharField(_('job'), max_length=100, null=True, blank=True)
     characters = ArrayField(models.CharField(_('characters'), max_length=255), null=True, blank=True)
+
