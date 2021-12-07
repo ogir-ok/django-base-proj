@@ -65,10 +65,10 @@ def deploy():
     for instance in instances:
         deploy_host(instance)
 
+
 def list_instanc():
     instances = find_instances()
     for instance in instances:
-
         print(f'Piblic IPv4 address: {instance.public_ip_address}')
         print('-' * 60)
 
