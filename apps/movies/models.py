@@ -25,7 +25,7 @@ class Movie(models.Model):
             return 'N/A'
 
     def __str__(self):
-        return self.name or ''
+        return str(self.name)
 
 
 class Person(models.Model):
@@ -35,7 +35,7 @@ class Person(models.Model):
     death_year = models.DateField(_('deathYear'), null=True, blank=True)
 
     def __str__(self):
-        return self.name or ''
+        return str(self.name)
 
 
 class PersonMovie(models.Model):
@@ -48,4 +48,3 @@ class PersonMovie(models.Model):
     category = models.CharField(_('category'), max_length=100, null=True, blank=True)
     job = models.CharField(_('job'), max_length=100, null=True, blank=True)
     characters = ArrayField(models.CharField(_('characters'), max_length=255), null=True, blank=True)
-

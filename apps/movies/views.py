@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class SearchMixin:
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(name__icontains=self.request.GET.get('q', )).all()
+        return queryset.filter(name__icontains=self.request.GET.get('q', '')).all()
 
 
 class MovieList(SearchMixin, ListView):
@@ -63,7 +63,6 @@ class PersonAddView(LoginRequiredMixin, CreateView):
 
 
 class MovieAndActorRank(DetailView):
-    paginate_by = 19
     @staticmethod
     def get(request, **kwargs):
         movie_rank = connection.cursor()
