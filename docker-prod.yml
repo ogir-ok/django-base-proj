@@ -26,7 +26,7 @@ services:
     links:
       - db
     expose:
-      - '8000'
+      - "8000"
   nginx:
     build:
       context: ./docker/nginx
