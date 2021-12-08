@@ -7,12 +7,12 @@
         {% block title %}
         {% endblock title %}
     </title>
-
-    <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link href="/static/main.css" rel="stylesheet" crossorigin="anonymous">
     {% block extra_href %}
+        <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="/static/main.css" rel="stylesheet" crossorigin="anonymous">
     {% endblock extra_href %}
-
+    {% block extra_href_2 %}
+    {% endblock extra_href_2 %}
 </head>
 <body>
 {% block header %}
@@ -55,14 +55,22 @@
     {% if not request.user.is_authenticated %}
         <h4>Доступные функции для гостя</h4>
         <ul>
-            <a href="{% url 'movies:movie_and_person_rank' %}" style="text-decoration: none;"><li>Movies and actor rank</li></a>
+            <a href="{% url 'movies:movie_and_person_rank' %}" style="text-decoration: none;">
+                <li>Movies and actor rank</li>
+            </a>
         </ul>
     {% else %}
         <h4>Доступные функции для пользователя, {{ request.user.username }}</h4>
         <ul>
-            <a href="{% url 'movies:movie_and_person_rank' %}" style="text-decoration: none;"><li>Movies and actor rank</li></a>
-            <a href="{% url 'movies:movie_add' %}" style="text-decoration: none;"><li>Add new movie</li></a>
-            <a href="{% url 'movies:person_add' %}" style="text-decoration: none;"><li>Add new person</li></a>
+            <a href="{% url 'movies:movie_and_person_rank' %}" style="text-decoration: none;">
+                <li>Movies and actor rank</li>
+            </a>
+            <a href="{% url 'movies:movie_add' %}" style="text-decoration: none;">
+                <li>Add new movie</li>
+            </a>
+            <a href="{% url 'movies:person_add' %}" style="text-decoration: none;">
+                <li>Add new person</li>
+            </a>
         </ul>
     {% endif %}
 </aside>

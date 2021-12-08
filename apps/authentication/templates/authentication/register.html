@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+
+    Registration
+{% endblock title %}
+{% block extra_href_2 %}
+    <link href="/static/register.css" rel="stylesheet" crossorigin="anonymous">{% endblock extra_href_2 %}
+{% block content %}
+    <h1 id="register_head">Registration</h1>
+
+    <main>
+        <form id="register_text" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input id="input_button" type="submit" name="register"/>
+        </form>
+    </main>
+{% endblock %}

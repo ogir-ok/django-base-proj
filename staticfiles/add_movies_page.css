@@ -1,0 +1,71 @@
+#name_new_movies {
+    color: #fff;
+    text-align: center;
+    transition: all .6s ease;
+}
+#name_new_movies:hover {
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.001);
+
+}
+#name_form_new_movies {
+    margin-top: 10px;
+    font-size: 30px;
+    text-align: center;
+    color: black;
+    transition: all .6s ease;
+}
+
+
+
+#date_new_movies {
+    margin-top: 15px;
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    transition: all .6s ease;
+}
+
+#date_form_new_movies {
+    margin-top: 15px;
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    transition: all .6s ease;
+}
+
+#form_new_movies {
+    margin-top: 15px;
+    font-size: 30px;
+    text-align: center;
+    color: black;
+    transition: all .6s ease;
+}
+
+#div_button_sub {
+    text-align: center;
+}
+#button_sub {
+    background: white;
+    color: black;
+    transition: all .6s ease;
+}
+#button_sub:hover{
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+
+#actors_new_movies {
+    text-align: center;
+    width: 100%; /* Ширина поля */
+    padding: 10px; /* Поля */
+    transition: all .6s ease;
+}
+#actors_new_movies:hover{
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.001);
+}

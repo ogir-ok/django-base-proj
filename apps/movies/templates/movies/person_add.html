@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
 {% block title %}Add new person{% endblock title %}
-{% block extra_href %}{{ form.media.css }}{% endblock  %}
+{% block extra_href_2 %}
+    {{ form.media.css }}
+    <link href="/static/add_person_page.css" rel="stylesheet" crossorigin="anonymous">
+{% endblock extra_href_2 %}
 
 
 {% block content %}
-    <div class="row-cols-auto" style="color: #fff; width: 30%">
+    <div class="row-cols-auto">
         <form method="post">
             {% csrf_token %}
-            Name new Person {{ form.name }}
-            {{ form.birth_year|bootstrap }}
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <h4 id="name_person">Name new Person {{ form.name }}</h4>
+            <h4 id="name_person">Birth Year person {{ form.birth_year }}</h4>
+            <div class="form-group" id="div_button_sub">
+                <button type="submit" id="button_sub" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>

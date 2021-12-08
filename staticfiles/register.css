@@ -1,0 +1,31 @@
+#register_text {
+    color: #fff;
+}
+
+#register_head {
+    color: #fff;
+    text-align: center;
+}
+
+input {
+    margin-top: -10px;
+    font-size: 15px;
+    text-align: center;
+    color: black;
+    transition: all .6s ease;;
+}
+
+input:hover {
+    text-decoration: none;
+    transform: scale(1.09);
+}
+
+#input_button {
+    text-align: center;
+}
+
+#input_button:hover {
+    color: #eb5959;;
+    text-decoration: none;
+    transform: scale(1.09);
+}

@@ -3,25 +3,25 @@
 {% block title %}Add new Movies{% endblock title %}
 
 
-
-{% block extra_href %}
+{% block extra_href_2 %}
     {{ form.media.css }}
-{% endblock  %}
+    <link href="/static/add_movies_page.css" rel="stylesheet" crossorigin="anonymous">
+{% endblock extra_href_2 %}
+
 
 {% block content %}
-    <div class="row-cols-auto" style="width: auto; height: 30%">
+    <div class="row-cols-auto">
         <form method="post">
             {% csrf_token %}
+            <h4 id="name_new_movies">Title name for new movies</h4>
+            <h4 id="name_form_new_movies">{{ form.name }}
 
-            <h4>{{ form.name|bootstrap}}
-                Release date
-                <p>
-                {{ form.year }}
-                <p>
-                {{ form.persons_participating|bootstrap }}
-            </h4>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <h4 id="date_new_movies">Release date</h4>
+            <h4 id="date_form_new_movies">{{ form.year }}</h4>
+
+            <h4 id="actors_new_movies">{{ form.persons_participating|bootstrap }}</h4>
+            <div class="form-group" id="div_button_sub">
+                <button type="submit" id="button_sub"  class="btn btn-primary" >Submit</button>
             </div>
         </form>
     </div>

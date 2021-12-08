@@ -1,0 +1,17 @@
+#name_person{
+    text-align: center;
+}
+
+#div_button_sub {
+    text-align: center;
+}
+#button_sub {
+    background: white;
+    color: black;
+    transition: all .6s ease;
+}
+#button_sub:hover{
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.06);
+}

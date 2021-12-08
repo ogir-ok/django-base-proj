@@ -1,0 +1,95 @@
+body {
+    background: #2c2c2c;
+    border-right: 10px solid #4d4d4d;
+}
+
+h1 {
+    color: #fff;
+    width: 20%;
+    padding: 2.5%;
+    height: 10vh;
+}
+
+h4 {
+    color: #fff;
+    width: 100%;
+}
+
+tbody {
+    color: #fff;
+}
+
+aside {
+    float: left;
+    background: #181818;
+    width: 15%;
+    padding: 2.5%;
+    height: 100vh;
+    color: #fff;
+    border-right: 5px;
+    position: relative;
+    top: -1px;
+}
+aside h4{
+    margin-top: -40px;
+    font-size: 15px;
+    text-align: center;
+}
+aside ul{list-style: none}
+aside ul li{
+    color: #fff;
+    display: block;
+    font-size: 15px;
+    margin-top: 15px;
+    margin-left: -30px;
+    transition: all .6s ease;
+}
+aside ul li:hover, aside ul a:hover{
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+div.col-md-3:hover {
+    transition: all .6s ease;
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+div.card-body h3, div.card-body p {
+    text-align: center;
+    color: #fff;
+}
+div.card-body h3:hover{
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+div.dropdown:hover {
+    color: #fff;
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+a.nav-link {
+    color: #fff;
+}
+a.nav-link:hover {
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+a.dropdown-item {
+    color: black;
+}
+
+a.dropdown-item:hover {
+    text-decoration: none;
+    transform: scale(1.06);
+}
+
+.table {
+    color: #fff;
+}
