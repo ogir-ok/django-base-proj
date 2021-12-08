@@ -13,7 +13,7 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ['name', 'year', 'persons_participating']
-        YEAR_CHOICES = list(range(1800,2050))
+        YEAR_CHOICES = list(range(1800, 2050))
         widgets = {
             'year': forms.SelectDateWidget(years=YEAR_CHOICES),
             'persons_participating': PersonWidget()
@@ -33,4 +33,4 @@ class PersonForm(forms.ModelForm):
 class PersonMovieForm(forms.ModelForm):
     class Meta:
         model = PersonMovie
-        fields = ['order', 'category', 'job', 'characters']
+        fields = ['category', 'job', 'characters']

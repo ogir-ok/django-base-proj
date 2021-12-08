@@ -9,5 +9,5 @@ urlpatterns = [
     path(r'add/movies', MovieAddView.as_view(), name='movie_add'),
     path(r'add/person', PersonAddView.as_view(), name='person_add'),
     path('long_running/', LongRunning.as_view(), name='long_running'),
-    path('rank/', movie_and_person_rank, name='movie_and_person_rank')
+    path('rank/', MovieAndActorRank.as_view(), name='movie_and_person_rank')
 ]

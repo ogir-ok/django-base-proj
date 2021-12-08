@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+import settings.base
 from apps.movies.views import MovieList
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +27,4 @@ urlpatterns = [
     path('movies/', include('apps.movies.urls', namespace='movies')),
     path('select2/', include('django_select2.urls')),
     path('', MovieList.as_view())
-]
+] + static(settings.base.STATIC_URL, document_root=settings.base.STATIC_ROOT)

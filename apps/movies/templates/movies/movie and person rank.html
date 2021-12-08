@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
+{% load bootstrap_pagination %}
+{% block title %}
+    Rating Movies and Person
+{% endblock title %}
 
 {% block content %}
-    <div class="col-md-3">
+    {{ person }}{{ person_and_movies }}
+    <div class="row-cols-md-5">
     {% for date_mov in data_movie %}{% for date_per in data_person %}
         <div class="table">
-            <h5>Movie: {{ date_mov|join:', '|default:'N/A'}}</h5><h5>Person: {{ date_per|join:', '|default:'N/A'}}</h5>
+            <h5 class="h5">Movie: {{ date_mov|join:', '|default:'N/A'}}</h5><h5>Person: {{ date_per|join:', '|default:'N/A'}}</h5>
         </div>
-    {% endfor %}
-    {% endfor %}
+    {% endfor %}{% endfor %}
     </div>
 
 {% endblock %}

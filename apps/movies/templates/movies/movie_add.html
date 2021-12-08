@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
+{% block title %}Add new Movies{% endblock title %}
+
+
 
 {% block extra_href %}
     {{ form.media.css }}
 {% endblock  %}
 
 {% block content %}
-    <h1>List of movies</h1>
-    <div class="row" style="width: auto">
+    <div class="row-cols-auto" style="width: auto; height: 30%">
         <form method="post">
             {% csrf_token %}
-            {{ form.name|bootstrap }}
-            Release date
-            {{ form.year }}
-            <p>
-            {{ form.persons_participating|bootstrap }}
+
+            <h4>{{ form.name|bootstrap}}
+                Release date
+                <p>
+                {{ form.year }}
+                <p>
+                {{ form.persons_participating|bootstrap }}
+            </h4>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

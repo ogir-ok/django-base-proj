@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            {% block title %}
-            {% endblock title %}
-        </title>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
 
-        <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="/static/main.css" rel="stylesheet" crossorigin="anonymous">
-        {% block extra_href %}
-        {% endblock extra_href %}
+    <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/static/main.css" rel="stylesheet" crossorigin="anonymous">
+    {% block extra_href %}
+    {% endblock extra_href %}
 
-    </head>
-    <body>
-        {% block header %}
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#">Movies</a>
+</head>
+<body>
+{% block header %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="">Movies</a>
 
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'movies:movie_list' %}">Home</a>
-                        </li>
-                    </ul>
-                </div>
-                {% if not request.user.is_authenticated %}
-                <a class="nav-link" href="{% url 'auth:login' %}" >
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'movies:movie_list' %}">Home</a>
+                    </li>
+                </ul>
+            </div>
+            {% if not request.user.is_authenticated %}
+                <a class="nav-link" href="{% url 'auth:login' %}" style="color: #fff">
                     Log in
                 </a>
-                {% else %}
+            {% else %}
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Hi, {{ request.user.username }}
                     </a>
                     <div class="dropdown-menu">
@@ -44,25 +46,46 @@
                         <a class="dropdown-item" href="#">Profile</a>
                     </div>
                 </div>
-                {% endif %}
-            </div>
-        </nav>
-        {% endblock header %}
-            <div id="container" class="container">
-                <div class="row">
-                    {% block content %}
-                    Here goes content.
-                    {% endblock content %}
-                </div>
-                <div class="row">
-                    {% block footer %}
-                    {% endblock footer  %}
-                </div>
-                <script src="/static/jquery.min.js"></script>
-                <script src="/static/popper.min.js"></script>
-                <script src="/static/bootstrap.min.js"></script>
-                {% block extra_js %}
-                {% endblock extra_js %}
-            </div>
-    </body>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock header %}
+<aside>
+
+    {% if not request.user.is_authenticated %}
+        <h4>Доступные функции для гостя</h4>
+        <ul>
+            <a href="{% url 'movies:movie_and_person_rank' %}" style="text-decoration: none;"><li>Movies and actor rank</li></a>
+        </ul>
+    {% else %}
+        <h4>Доступные функции для пользователя, {{ request.user.username }}</h4>
+        <ul>
+            <a href="{% url 'movies:movie_and_person_rank' %}" style="text-decoration: none;"><li>Movies and actor rank</li></a>
+            <a href="{% url 'movies:movie_add' %}" style="text-decoration: none;"><li>Add new movie</li></a>
+            <a href="{% url 'movies:person_add' %}" style="text-decoration: none;"><li>Add new person</li></a>
+        </ul>
+    {% endif %}
+</aside>
+<main>
+    <div id="container" class="container">
+        <div class="row">
+            {% block content %}
+                Here goes content.
+            {% endblock content %}
+        </div>
+        <div class="row">
+            {% block footer %}
+            {% endblock footer %}
+        </div>
+
+        <script src="/static/jquery.min.js"></script>
+        <script src="/static/popper.min.js"></script>
+        <script src="/static/bootstrap.min.js"></script>
+        <script src="/static/main.css"></script>
+        {% block extra_js %}
+        {% endblock extra_js %}
+    </div>
+</main>
+
+</body>
 </html>

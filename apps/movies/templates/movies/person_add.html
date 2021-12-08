@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
-
+{% block title %}Add new person{% endblock title %}
+{% block extra_href %}{{ form.media.css }}{% endblock  %}
 
 
 {% block content %}
-    <h1>List of person</h1>
-    <div class="row" style="width: auto">
+    <div class="row-cols-auto" style="color: #fff; width: 30%">
         <form method="post">
             {% csrf_token %}
-            Name Person
-            {{ form.name }}
-            <p></p>
-            Birthday {{ form.birth_year }}
-
+            Name new Person {{ form.name }}
+            {{ form.birth_year|bootstrap }}
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
 {% endblock %}
+{% block extra_js %}{{ form.media.js }}{% endblock %}
+
+

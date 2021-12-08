@@ -25,7 +25,7 @@ class Movie(models.Model):
             return 'N/A'
 
     def __str__(self):
-        return self.name
+        return self.name or ''
 
 
 class Person(models.Model):
@@ -35,7 +35,7 @@ class Person(models.Model):
     death_year = models.DateField(_('deathYear'), null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name or ''
 
 
 class PersonMovie(models.Model):
