@@ -1,4 +1,4 @@
 from .docker import *
 
 DEBUG = True
-ALLOWED_HOSTS = ['3.237.185.111']
+ALLOWED_HOSTS = ['18.223.24.39']
