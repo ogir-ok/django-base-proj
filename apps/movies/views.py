@@ -65,34 +65,43 @@ class PersonAddView(LoginRequiredMixin, CreateView):
 class MovieAndActorRank(DetailView):
     @staticmethod
     def get(request, **kwargs):
-        movie_rank = connection.cursor()
-        person_rank = connection.cursor()
-        person_rank.execute("""
-                               SELECT movies_person.name,count( * ) as rank
-                                from movies_personmovie
-                                join movies_movie on movies_movie.id = movies_personmovie.movie_id
-                                join movies_person on movies_person.id =  movies_personmovie.person_id
-                                group by movies_person.id
-                                order by rank desc;
-                            """)
-        movie_rank.execute("""SELECT movies_movie.name, sum(sq.occurences_count) as "rank" from movies_movie
-                                    join movies_personmovie on movies_personmovie.movie_id = movies_movie.id
-                                    left join(SELECT movies_person.id as "person_id", count(*) as "occurences_count" 
-                                    from movies_person
-                                    left outer join public.movies_personmovie
-                                    on movies_person.id = movies_personmovie.person_id
-                                    where
-                                        movies_personmovie.category = 'actor' or
-                                        movies_personmovie.category = 'actress' or
-                                        movies_personmovie.category = 'self'
-                                    group by movies_person.id) as sq on sq.person_id = movies_personmovie.movie_id
-                                    group by movies_movie.id
-                                    order by rank Desc;
-                        """)
-        context = {'data_movie': movie_rank,
-                   'data_person': person_rank}
+        with connection.cursor() as cursor:
+            cursor.execute(""" SELECT movies_person.name, sum(sq.rating) as rating from movies_person
+                                join movies_personmovie on movies_personmovie.person_id = movies_person.id
+                                join (Select movies_movie.id as "movie_id", sum(sq.rating) as rating from movies_movie
+                                join movies_personmovie on movies_personmovie.movie_id = movies_movie.id
+                                join (Select movies_person.id AS "person_id", count(*) as rating from movies_person
+                                join public.movies_personmovie on movies_person.id = movies_personmovie.person_id
+                                where
+                                    movies_personmovie.category = 'actor' or
+                                    movies_personmovie.category = 'actress' or
+                                    movies_personmovie.category = 'self'  
+                                group by movies_person.id) as sq on sq.person_id = movies_personmovie.person_id
+                                group by movies_movie.id) as sq on sq.movie_id = movies_personmovie.movie_id
+                                where
+                                    movies_personmovie.category = 'actor' or
+                                    movies_personmovie.category = 'actress' or
+                                    movies_personmovie.category = 'self'
+                                group by movies_person.name
+                                order by rating DESC;""")
+            person_rank = cursor.fetchall()
+            cursor.execute(""" SELECT movies_movie.name, sum(sq.rating) as rating from movies_movie
+                                join movies_personmovie on movies_personmovie.movie_id = movies_movie.id
+                                join (Select movies_person.id AS "person_id", count(*) as rating from movies_person
+                                left outer join public.movies_personmovie on movies_person.id = movies_personmovie.person_id
+                                where
+                                    movies_personmovie.category = 'actor' or
+                                    movies_personmovie.category = 'actress' or
+                                    movies_personmovie.category = 'self'  
+                                group by movies_person.id) as sq on sq.person_id = movies_personmovie.person_id
+                                group by movies_movie.id
+                                order by rating desc;""")
+            movie_rank = cursor.fetchall()
+            movie_rank, person_rank = movie_rank[:10], person_rank[:10]
+
         return render(request, 'movies/movie and person rank.html',
-                      context=context)
+                      context={'data_movie': movie_rank,
+                               'data_person': person_rank})
 
 
 class LongRunning(View):
