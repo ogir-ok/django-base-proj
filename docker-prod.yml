@@ -31,7 +31,7 @@ services:
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
-    depends_on:
+    links:
         - db
         - web
     volumes:
