@@ -25,8 +25,8 @@ services:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
-    expose:
-      - 8000
+    ports:
+      - "8000:8000"
   nginx:
     build:
       context: ./docker/nginx
