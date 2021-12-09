@@ -24,6 +24,6 @@ services:
     links:
       - db
     ports:
-      - 80:80
+      - 80:8000
 volumes:
   pgdata:
