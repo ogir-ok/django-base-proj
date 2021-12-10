@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_select2',
     'bootstrapform',
     'bootstrap_pagination',
+    'django_celery_beat',
 
     'apps.movies.apps.MoviesConfig',
     'apps.authentication.apps.AuthenticationConfig'
