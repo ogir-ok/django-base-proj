@@ -27,6 +27,23 @@ services:
       - db
     ports:
       - "8000:8000"
+  rabbitmq:
+    image: rabbitmq
+  celery:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/src
+      - ./static:/static
+      - ./media:/media
+    command:
+      /bin/bash -c "pip install -r requirements.txt; celery -A config.celery worker -l INFO"
+    links:
+      - db
+      - rabbitmq
+    expose:
+      - "8000"
   nginx:
     build:
       context: ./docker/nginx
