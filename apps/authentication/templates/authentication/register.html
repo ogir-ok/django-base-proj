@@ -5,11 +5,10 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Login</h1>
+    <h2>Register</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" name="Log in"/>
+        <input type="submit" name="register"/>
     </form>
-        <a href="{% url 'authentication:register' %}"> register </a>
 {% endblock %}

@@ -24,3 +24,8 @@ LOGGING = {
         "apps": {"level": "DEBUG", "handlers": ["console"]},
     },
 }
+
+CELERY_BROKER_URL = 'amqp://rabbitmq'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

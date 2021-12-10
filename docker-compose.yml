@@ -13,8 +13,27 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+  rabbitmq:
+    image: rabbitmq
+  celery:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/src
+      - ./static:/static
+      - ./media:/media
+    command:
+      /bin/bash -c "pip install -r requirements.txt; celery -A config.celery worker -l INFO"
+    links:
+      - db
+      - rabbitmq
+    expose:
+      - 8000
   web:
     build: .
+    environment:
+      PY_AUTORELOAD: true
     env_file:
       - .env
     volumes:
@@ -25,6 +44,7 @@ services:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
+      - rabbitmq
     expose:
       - 8000
   nginx:

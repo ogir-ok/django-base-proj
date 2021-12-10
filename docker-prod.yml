@@ -16,9 +16,14 @@ services:
     image: nginx
     links:
       - web
+    expose:
+      - 80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./static:/static:ro
       - ./media:/media:ro
-    ports:
-      - 80:80
+    environment:
+      - VIRTUAL_HOST=movies.ogir-ok.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=movies.ogir-ok.com
+      - LETSENCRYPT_EMAIL=admin@movies.ogir-ok.com
