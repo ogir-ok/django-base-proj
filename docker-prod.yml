@@ -40,7 +40,7 @@ services:
     command:
       /bin/bash -c "pip install -r requirements.txt; celery -A config.celery worker -l INFO"
     links:
-      - db
+
       - rabbitmq
     expose:
       - "8000"
