@@ -24,3 +24,6 @@ LOGGING = {
         "apps": {"level": "DEBUG", "handlers": ["console"]},
     },
 }
+
+CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
+EMAIL_BACKEND = os.environ['EMAIL_BACKEND']

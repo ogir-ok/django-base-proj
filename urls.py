@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import djoser
 
 import settings.base
 from apps.movies.views import MovieList
@@ -22,9 +23,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
+    path('authentication/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
     path('authentication/', include('apps.authentication.urls', namespace='authentication')),
     path('movies/', include('apps.movies.urls', namespace='movies')),
     path('select2/', include('django_select2.urls')),
-    path('', MovieList.as_view())
+    path('accounts/', include('django_registration.backends.activation.urls')),
+    path('', MovieList.as_view()),
+    path('api-auth/', include('rest_framework.urls'))
 ] + static(settings.base.STATIC_URL, document_root=settings.base.STATIC_ROOT)

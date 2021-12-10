@@ -27,6 +27,24 @@ services:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
+      - rabbitmq
+    expose:
+      - "8000"
+  rabbitmq:
+    image: rabbitmq
+  celery:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/src
+      - ./static:/static
+      - ./media:/media
+    command:
+      /bin/bash -c "pip install -r requirements.txt; celery -A config.celery worker -l INFO"
+    links:
+      - db
+      - rabbitmq
     expose:
       - "8000"
   nginx:
@@ -36,6 +54,8 @@ services:
     links:
       - db
       - web
+      - celery
+      - rabbitmq
     ports:
       - "80:80"
     volumes:

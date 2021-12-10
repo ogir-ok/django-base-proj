@@ -60,8 +60,8 @@
 
 #actors_new_movies {
     text-align: center;
-    width: 100%; /* Ширина поля */
-    padding: 10px; /* Поля */
+    width: 100%;
+    padding: 10px;
     transition: all .6s ease;
 }
 #actors_new_movies:hover{

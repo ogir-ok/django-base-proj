@@ -32,8 +32,8 @@ services:
       context: ./docker/nginx
       dockerfile: Dockerfile
     links:
-        - db
-        - web
+      - db
+      - web
     volumes:
       - .:/src
       - ./static:/static:ro

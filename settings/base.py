@@ -40,6 +40,10 @@ INSTALLED_APPS = [
 
     'django_select2',
     'bootstrapform',
+    'celery',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'bootstrap_pagination',
 
     'apps.movies.apps.MoviesConfig',
@@ -138,3 +142,17 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# smtp
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = 587
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
