@@ -28,6 +28,9 @@ class MovieListView(SearchMixin, ListView):
     model = Movie
     paginate_by = 19
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        sleep(10)
+
 
 class MovieDetailView(DetailView):
     template_name = 'movies/detail.html'

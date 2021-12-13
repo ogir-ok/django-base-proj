@@ -9,3 +9,6 @@ django-bootstrap-pagination==1.7.1
 celery==5.2.1
 redis==4.0.2
 uwsgi==2.0.20
+
+beautifulsoup4==4.10.0
+requests==2.26.0
