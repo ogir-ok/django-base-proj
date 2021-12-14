@@ -54,7 +54,7 @@ class RegisterViev(CreateView):
 
         email_subject = 'Activate your account'
 
-        send_confirm_mail(email_subject, email_body,email)
+        send_confirm_mail.delay(email_subject, email_body,email)
 
         return super().form_valid(form)
 

@@ -28,8 +28,8 @@ services:
     links:
       - db
       - rabbitmq
-    expose:
-      - "8000"
+    ports:
+      - "8000:80"
   rabbitmq:
     image: rabbitmq
   celery:
