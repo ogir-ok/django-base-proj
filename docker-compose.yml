@@ -59,7 +59,7 @@ services:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
-      - rabbitmq
+      - redis
     expose:
       - 8000
   nginx:

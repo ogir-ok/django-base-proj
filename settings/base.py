@@ -148,3 +148,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 CELERY_TIMEZONE = "Australia/Tasmania"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+
+AUTH_USER_MODEL = 'authentication.User'
