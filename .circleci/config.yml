@@ -1,6 +1,14 @@
 version: 2.1
 
 jobs:
+  flake8:
+    docker:
+      - image: alpine/flake8
+    steps:
+      - checkout
+      - run:
+          name: "Flake8 check"
+          command: "flake8"
   deploy-prod:
     docker:
       - image: cimg/base:stable

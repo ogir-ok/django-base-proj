@@ -44,10 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'drf_yasg',
     'django_select2',
     'bootstrapform',
+    'django_filters',
     'bootstrap_pagination',
     'django_celery_beat',
+    'rest_framework',
+    'rest_framework_simplejwt',
 
     'apps.movies.apps.MoviesConfig',
     'apps.authentication.apps.AuthenticationConfig'
@@ -151,3 +155,25 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 
 AUTH_USER_MODEL = 'authentication.User'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter'
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+
+    ],
+    'AUTHENTICATION_BACKENDS': [
+        'rest_framework.authentication.SessionBackend',
+    ],
+}

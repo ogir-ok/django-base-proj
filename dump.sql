@@ -234,6 +234,112 @@ ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_use
 
 
 --
+-- Name: authentication_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.authentication_user (
+    id bigint NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    email character varying(254) NOT NULL,
+    is_active boolean NOT NULL,
+    is_staff boolean NOT NULL,
+    is_superuser boolean NOT NULL
+);
+
+
+ALTER TABLE public.authentication_user OWNER TO postgres;
+
+--
+-- Name: authentication_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.authentication_user_groups (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.authentication_user_groups OWNER TO postgres;
+
+--
+-- Name: authentication_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.authentication_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.authentication_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: authentication_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.authentication_user_groups_id_seq OWNED BY public.authentication_user_groups.id;
+
+
+--
+-- Name: authentication_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.authentication_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.authentication_user_id_seq OWNER TO postgres;
+
+--
+-- Name: authentication_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.authentication_user_id_seq OWNED BY public.authentication_user.id;
+
+
+--
+-- Name: authentication_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.authentication_user_user_permissions (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.authentication_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: authentication_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.authentication_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.authentication_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: authentication_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.authentication_user_user_permissions_id_seq OWNED BY public.authentication_user_user_permissions.id;
+
+
+--
 -- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -245,7 +351,7 @@ CREATE TABLE public.django_admin_log (
     action_flag smallint NOT NULL,
     change_message text NOT NULL,
     content_type_id integer,
-    user_id integer NOT NULL,
+    user_id bigint NOT NULL,
     CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
 );
 
@@ -272,6 +378,220 @@ ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_celery_beat_clockedschedule; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_celery_beat_clockedschedule (
+    id integer NOT NULL,
+    clocked_time timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_celery_beat_clockedschedule OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_clockedschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_celery_beat_clockedschedule_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_celery_beat_clockedschedule_id_seq OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_clockedschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_celery_beat_clockedschedule_id_seq OWNED BY public.django_celery_beat_clockedschedule.id;
+
+
+--
+-- Name: django_celery_beat_crontabschedule; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_celery_beat_crontabschedule (
+    id integer NOT NULL,
+    minute character varying(240) NOT NULL,
+    hour character varying(96) NOT NULL,
+    day_of_week character varying(64) NOT NULL,
+    day_of_month character varying(124) NOT NULL,
+    month_of_year character varying(64) NOT NULL,
+    timezone character varying(63) NOT NULL
+);
+
+
+ALTER TABLE public.django_celery_beat_crontabschedule OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_crontabschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_celery_beat_crontabschedule_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_celery_beat_crontabschedule_id_seq OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_crontabschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_celery_beat_crontabschedule_id_seq OWNED BY public.django_celery_beat_crontabschedule.id;
+
+
+--
+-- Name: django_celery_beat_intervalschedule; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_celery_beat_intervalschedule (
+    id integer NOT NULL,
+    every integer NOT NULL,
+    period character varying(24) NOT NULL
+);
+
+
+ALTER TABLE public.django_celery_beat_intervalschedule OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_intervalschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_celery_beat_intervalschedule_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_celery_beat_intervalschedule_id_seq OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_intervalschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_celery_beat_intervalschedule_id_seq OWNED BY public.django_celery_beat_intervalschedule.id;
+
+
+--
+-- Name: django_celery_beat_periodictask; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_celery_beat_periodictask (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    task character varying(200) NOT NULL,
+    args text NOT NULL,
+    kwargs text NOT NULL,
+    queue character varying(200),
+    exchange character varying(200),
+    routing_key character varying(200),
+    expires timestamp with time zone,
+    enabled boolean NOT NULL,
+    last_run_at timestamp with time zone,
+    total_run_count integer NOT NULL,
+    date_changed timestamp with time zone NOT NULL,
+    description text NOT NULL,
+    crontab_id integer,
+    interval_id integer,
+    solar_id integer,
+    one_off boolean NOT NULL,
+    start_time timestamp with time zone,
+    priority integer,
+    headers text NOT NULL,
+    clocked_id integer,
+    expire_seconds integer,
+    CONSTRAINT django_celery_beat_periodictask_expire_seconds_check CHECK ((expire_seconds >= 0)),
+    CONSTRAINT django_celery_beat_periodictask_priority_check CHECK ((priority >= 0)),
+    CONSTRAINT django_celery_beat_periodictask_total_run_count_check CHECK ((total_run_count >= 0))
+);
+
+
+ALTER TABLE public.django_celery_beat_periodictask OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_periodictask_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_celery_beat_periodictask_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_celery_beat_periodictask_id_seq OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_periodictask_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_celery_beat_periodictask_id_seq OWNED BY public.django_celery_beat_periodictask.id;
+
+
+--
+-- Name: django_celery_beat_periodictasks; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_celery_beat_periodictasks (
+    ident smallint NOT NULL,
+    last_update timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_celery_beat_periodictasks OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_solarschedule; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_celery_beat_solarschedule (
+    id integer NOT NULL,
+    event character varying(24) NOT NULL,
+    latitude numeric(9,6) NOT NULL,
+    longitude numeric(9,6) NOT NULL
+);
+
+
+ALTER TABLE public.django_celery_beat_solarschedule OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_solarschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_celery_beat_solarschedule_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_celery_beat_solarschedule_id_seq OWNER TO postgres;
+
+--
+-- Name: django_celery_beat_solarschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_celery_beat_solarschedule_id_seq OWNED BY public.django_celery_beat_solarschedule.id;
 
 
 --
@@ -512,10 +832,66 @@ ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT n
 
 
 --
+-- Name: authentication_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user ALTER COLUMN id SET DEFAULT nextval('public.authentication_user_id_seq'::regclass);
+
+
+--
+-- Name: authentication_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_groups ALTER COLUMN id SET DEFAULT nextval('public.authentication_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: authentication_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.authentication_user_user_permissions_id_seq'::regclass);
+
+
+--
 -- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_celery_beat_clockedschedule id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_clockedschedule ALTER COLUMN id SET DEFAULT nextval('public.django_celery_beat_clockedschedule_id_seq'::regclass);
+
+
+--
+-- Name: django_celery_beat_crontabschedule id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_crontabschedule ALTER COLUMN id SET DEFAULT nextval('public.django_celery_beat_crontabschedule_id_seq'::regclass);
+
+
+--
+-- Name: django_celery_beat_intervalschedule id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_intervalschedule ALTER COLUMN id SET DEFAULT nextval('public.django_celery_beat_intervalschedule_id_seq'::regclass);
+
+
+--
+-- Name: django_celery_beat_periodictask id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask ALTER COLUMN id SET DEFAULT nextval('public.django_celery_beat_periodictask_id_seq'::regclass);
+
+
+--
+-- Name: django_celery_beat_solarschedule id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_solarschedule ALTER COLUMN id SET DEFAULT nextval('public.django_celery_beat_solarschedule_id_seq'::regclass);
 
 
 --
@@ -586,34 +962,54 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 10	Can change group	3	change_group
 11	Can delete group	3	delete_group
 12	Can view group	3	view_group
-13	Can add user	4	add_user
-14	Can change user	4	change_user
-15	Can delete user	4	delete_user
-16	Can view user	4	view_user
-17	Can add content type	5	add_contenttype
-18	Can change content type	5	change_contenttype
-19	Can delete content type	5	delete_contenttype
-20	Can view content type	5	view_contenttype
-21	Can add session	6	add_session
-22	Can change session	6	change_session
-23	Can delete session	6	delete_session
-24	Can view session	6	view_session
-25	Can add director	7	add_director
-26	Can change director	7	change_director
-27	Can delete director	7	delete_director
-28	Can view director	7	view_director
-29	Can add movie	8	add_movie
-30	Can change movie	8	change_movie
-31	Can delete movie	8	delete_movie
-32	Can view movie	8	view_movie
-34	Can add person	34	add_person
-35	Can change person	34	change_person
-36	Can delete person	34	delete_person
-37	Can view person	34	view_person
-38	Can add person movie	35	add_personmovie
-39	Can change person movie	35	change_personmovie
-40	Can delete person movie	35	delete_personmovie
-41	Can view person movie	35	view_personmovie
+13	Can add content type	4	add_contenttype
+14	Can change content type	4	change_contenttype
+15	Can delete content type	4	delete_contenttype
+16	Can view content type	4	view_contenttype
+17	Can add session	5	add_session
+18	Can change session	5	change_session
+19	Can delete session	5	delete_session
+20	Can view session	5	view_session
+21	Can add crontab	6	add_crontabschedule
+22	Can change crontab	6	change_crontabschedule
+23	Can delete crontab	6	delete_crontabschedule
+24	Can view crontab	6	view_crontabschedule
+25	Can add interval	7	add_intervalschedule
+26	Can change interval	7	change_intervalschedule
+27	Can delete interval	7	delete_intervalschedule
+28	Can view interval	7	view_intervalschedule
+29	Can add periodic task	8	add_periodictask
+30	Can change periodic task	8	change_periodictask
+31	Can delete periodic task	8	delete_periodictask
+32	Can view periodic task	8	view_periodictask
+33	Can add periodic tasks	9	add_periodictasks
+34	Can change periodic tasks	9	change_periodictasks
+35	Can delete periodic tasks	9	delete_periodictasks
+36	Can view periodic tasks	9	view_periodictasks
+37	Can add solar event	10	add_solarschedule
+38	Can change solar event	10	change_solarschedule
+39	Can delete solar event	10	delete_solarschedule
+40	Can view solar event	10	view_solarschedule
+41	Can add clocked	11	add_clockedschedule
+42	Can change clocked	11	change_clockedschedule
+43	Can delete clocked	11	delete_clockedschedule
+44	Can view clocked	11	view_clockedschedule
+45	Can add movie	12	add_movie
+46	Can change movie	12	change_movie
+47	Can delete movie	12	delete_movie
+48	Can view movie	12	view_movie
+49	Can add person	13	add_person
+50	Can change person	13	change_person
+51	Can delete person	13	delete_person
+52	Can view person	13	view_person
+53	Can add person movie	14	add_personmovie
+54	Can change person movie	14	change_personmovie
+55	Can delete person movie	14	delete_personmovie
+56	Can view person movie	14	view_personmovie
+57	Can add user	15	add_user
+58	Can change user	15	change_user
+59	Can delete user	15	delete_user
+60	Can view user	15	view_user
 \.
 
 
@@ -643,10 +1039,88 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 
 
 --
+-- Data for Name: authentication_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.authentication_user (id, password, last_login, email, is_active, is_staff, is_superuser) FROM stdin;
+1	pbkdf2_sha256$260000$CRiKSmPppIicvyNu741a1V$U08QCzDkdFib1j+U/KG8YheIIOsXHXRcIaCkXJt0oIE=	2021-12-17 17:58:38.981727+00	admin@admin.com	t	t	t
+\.
+
+
+--
+-- Data for Name: authentication_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.authentication_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: authentication_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.authentication_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2021-12-17 16:54:55.469822+00	1	Ivan Drago	1	[{"added": {}}]	13	1
+2	2021-12-17 16:55:15.534714+00	2	Johhny Sii	1	[{"added": {}}]	13	1
+\.
+
+
+--
+-- Data for Name: django_celery_beat_clockedschedule; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_celery_beat_clockedschedule (id, clocked_time) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_celery_beat_crontabschedule; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_celery_beat_crontabschedule (id, minute, hour, day_of_week, day_of_month, month_of_year, timezone) FROM stdin;
+1	0	4	*	*	*	Australia/Tasmania
+\.
+
+
+--
+-- Data for Name: django_celery_beat_intervalschedule; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_celery_beat_intervalschedule (id, every, period) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_celery_beat_periodictask; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_celery_beat_periodictask (id, name, task, args, kwargs, queue, exchange, routing_key, expires, enabled, last_run_at, total_run_count, date_changed, description, crontab_id, interval_id, solar_id, one_off, start_time, priority, headers, clocked_id, expire_seconds) FROM stdin;
+1	celery.backend_cleanup	celery.backend_cleanup	[]	{}	\N	\N	\N	\N	t	2021-12-20 16:02:47.573014+00	4	2021-12-20 16:03:12.65603+00		1	\N	\N	f	\N	\N	{}	\N	43200
+\.
+
+
+--
+-- Data for Name: django_celery_beat_periodictasks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_celery_beat_periodictasks (ident, last_update) FROM stdin;
+1	2021-12-17 16:31:44.996419+00
+\.
+
+
+--
+-- Data for Name: django_celery_beat_solarschedule; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_celery_beat_solarschedule (id, event, latitude, longitude) FROM stdin;
 \.
 
 
@@ -658,13 +1132,18 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 1	admin	logentry
 2	auth	permission
 3	auth	group
-4	auth	user
-5	contenttypes	contenttype
-6	sessions	session
-7	movies	director
-8	movies	movie
-34	movies	person
-35	movies	personmovie
+4	contenttypes	contenttype
+5	sessions	session
+6	django_celery_beat	crontabschedule
+7	django_celery_beat	intervalschedule
+8	django_celery_beat	periodictask
+9	django_celery_beat	periodictasks
+10	django_celery_beat	solarschedule
+11	django_celery_beat	clockedschedule
+12	movies	movie
+13	movies	person
+14	movies	personmovie
+15	authentication	user
 \.
 
 
@@ -673,28 +1152,49 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2021-11-17 22:04:42.735914+00
-2	auth	0001_initial	2021-11-17 22:04:42.837859+00
-3	admin	0001_initial	2021-11-17 22:04:42.862151+00
-4	admin	0002_logentry_remove_auto_add	2021-11-17 22:04:42.867921+00
-5	admin	0003_logentry_add_action_flag_choices	2021-11-17 22:04:42.874436+00
-6	contenttypes	0002_remove_content_type_name	2021-11-17 22:04:42.88528+00
-7	auth	0002_alter_permission_name_max_length	2021-11-17 22:04:42.891085+00
-8	auth	0003_alter_user_email_max_length	2021-11-17 22:04:42.897832+00
-9	auth	0004_alter_user_username_opts	2021-11-17 22:04:42.903293+00
-10	auth	0005_alter_user_last_login_null	2021-11-17 22:04:42.908867+00
-11	auth	0006_require_contenttypes_0002	2021-11-17 22:04:42.910811+00
-12	auth	0007_alter_validators_add_error_messages	2021-11-17 22:04:42.916292+00
-13	auth	0008_alter_user_username_max_length	2021-11-17 22:04:42.927212+00
-14	auth	0009_alter_user_last_name_max_length	2021-11-17 22:04:42.93295+00
-15	auth	0010_alter_group_name_max_length	2021-11-17 22:04:42.939155+00
-16	auth	0011_update_proxy_permissions	2021-11-17 22:04:42.944577+00
-17	auth	0012_alter_user_first_name_max_length	2021-11-17 22:04:42.950049+00
-18	movies	0001_initial	2021-11-17 22:04:42.966069+00
-19	sessions	0001_initial	2021-11-17 22:04:42.981777+00
-34	movies	0002_auto_20211112_1636	2021-11-17 22:21:05.43423+00
-35	movies	0003_person_personmovie	2021-11-17 22:21:05.461622+00
-36	movies	0004_auto_20211112_1734	2021-11-17 22:21:05.472733+00
+1	contenttypes	0001_initial	2021-12-13 16:09:58.777683+00
+2	authentication	0001_initial	2021-12-13 16:09:58.804996+00
+3	admin	0001_initial	2021-12-13 16:09:58.84791+00
+4	admin	0002_logentry_remove_auto_add	2021-12-13 16:09:58.861427+00
+5	admin	0003_logentry_add_action_flag_choices	2021-12-13 16:09:58.871614+00
+6	contenttypes	0002_remove_content_type_name	2021-12-13 16:09:58.879192+00
+7	auth	0001_initial	2021-12-13 16:09:58.925904+00
+8	auth	0002_alter_permission_name_max_length	2021-12-13 16:09:58.931108+00
+9	auth	0003_alter_user_email_max_length	2021-12-13 16:09:58.935641+00
+10	auth	0004_alter_user_username_opts	2021-12-13 16:09:58.940358+00
+11	auth	0005_alter_user_last_login_null	2021-12-13 16:09:58.94517+00
+12	auth	0006_require_contenttypes_0002	2021-12-13 16:09:58.947417+00
+13	auth	0007_alter_validators_add_error_messages	2021-12-13 16:09:58.952066+00
+14	auth	0008_alter_user_username_max_length	2021-12-13 16:09:58.957089+00
+15	auth	0009_alter_user_last_name_max_length	2021-12-13 16:09:58.961723+00
+16	auth	0010_alter_group_name_max_length	2021-12-13 16:09:58.96783+00
+17	auth	0011_update_proxy_permissions	2021-12-13 16:09:58.973381+00
+18	auth	0012_alter_user_first_name_max_length	2021-12-13 16:09:58.978226+00
+19	django_celery_beat	0001_initial	2021-12-13 16:09:59.015732+00
+20	django_celery_beat	0002_auto_20161118_0346	2021-12-13 16:09:59.028167+00
+21	django_celery_beat	0003_auto_20161209_0049	2021-12-13 16:09:59.03691+00
+22	django_celery_beat	0004_auto_20170221_0000	2021-12-13 16:09:59.041101+00
+23	django_celery_beat	0005_add_solarschedule_events_choices	2021-12-13 16:09:59.044891+00
+24	django_celery_beat	0006_auto_20180322_0932	2021-12-13 16:09:59.062014+00
+25	django_celery_beat	0007_auto_20180521_0826	2021-12-13 16:09:59.070738+00
+26	django_celery_beat	0008_auto_20180914_1922	2021-12-13 16:09:59.084633+00
+27	django_celery_beat	0006_auto_20180210_1226	2021-12-13 16:09:59.092968+00
+28	django_celery_beat	0006_periodictask_priority	2021-12-13 16:09:59.099132+00
+29	django_celery_beat	0009_periodictask_headers	2021-12-13 16:09:59.104379+00
+30	django_celery_beat	0010_auto_20190429_0326	2021-12-13 16:09:59.183202+00
+31	django_celery_beat	0011_auto_20190508_0153	2021-12-13 16:09:59.198395+00
+32	django_celery_beat	0012_periodictask_expire_seconds	2021-12-13 16:09:59.204349+00
+33	django_celery_beat	0013_auto_20200609_0727	2021-12-13 16:09:59.208953+00
+34	django_celery_beat	0014_remove_clockedschedule_enabled	2021-12-13 16:09:59.214506+00
+35	django_celery_beat	0015_edit_solarschedule_events_choices	2021-12-13 16:09:59.219344+00
+36	movies	0001_initial	2021-12-13 16:09:59.235882+00
+37	movies	0002_auto_20211112_1636	2021-12-13 16:09:59.264665+00
+38	movies	0003_person_personmovie	2021-12-13 16:09:59.289205+00
+39	movies	0004_auto_20211112_1734	2021-12-13 16:09:59.300528+00
+40	movies	0005_auto_20211122_1652	2021-12-13 16:09:59.315173+00
+41	sessions	0001_initial	2021-12-13 16:09:59.332912+00
+42	authentication	0002_auto_20211217_1651	2021-12-17 16:52:00.329457+00
+43	authentication	0003_auto_20211217_1737	2021-12-17 17:38:01.27983+00
 \.
 
 
@@ -703,6 +1203,8 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+8p0twvehq28cve62l88hla2ol9xav7de	.eJxVjMsOwiAQRf-FtSHA8HTp3m8gAwxSNTQp7cr479qkC93ec859sYjb2uI2aIlTYWcm2el3S5gf1HdQ7thvM89zX5cp8V3hBx38Ohd6Xg7376DhaN86o1ZAKDUVMFZaRQAehRLW6VyTUqJWC0ZbLb30xiKG4kCIWkJw2RB7fwDHCjcJ:1myGBJ:-HJHTqvDs8d4UBl-_3Ie_p0FNfTzH86yYS_NtQ8TyUA	2021-12-31 16:33:05.14101+00
+1lzw1y8zsags3j4wsjw6w2wkexfllas4	.eJxVjMsOwiAQRf-FtSHA8HTp3m8gAwxSNTQp7cr479qkC93ec859sYjb2uI2aIlTYWcm2el3S5gf1HdQ7thvM89zX5cp8V3hBx38Ohd6Xg7376DhaN86o1ZAKDUVMFZaRQAehRLW6VyTUqJWC0ZbLb30xiKG4kCIWkJw2RB7fwDHCjcJ:1myHV8:Sk-dliI1LWpsyCYQ3624-GlrORK2k4eLm_luH0yyunk	2021-12-31 17:58:38.99556+00
 zuampetv65efffl0k5ew7te71ut1b8b6	.eJxVjEEOwiAQRe_C2hA6QBlcuvcMZIBBqoYmpV0Z765NutDtf-_9lwi0rTVsnZcwZXEWgzj9bpHSg9sO8p3abZZpbusyRbkr8qBdXufMz8vh_h1U6vVbA6DWtpAqnshaBZbAGQaj_RATREI0RRFmRwbBYdZO-eh14jEzjEm8P8YwN3A:1mo6VD:X60qcK6VdRKZ3RRT8htgFa3SQ1yk-6_f9DsNHg7X2yY	2021-12-03 16:12:39.28566+00
 \.
 
@@ -1671,6 +2173,7 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 957	The Mills of the Gods	{"Short\n"}	tt0000967	f	short	1909-01-01
 958	Mistaken Identity	{Comedy,"Short\n"}	tt0000968	f	short	1909-01-01
 959	Les Misérables	{Drama,History,"Short\n"}	tt0000969	f	short	1909-01-01
+1205	The Final Settlement	{Drama,"Short\n"}	tt0001216	f	short	1910-01-01
 960	The Life of Moliere	{Biography,Drama,"Short\n"}	tt0000970	f	short	1910-01-01
 961	The Mill	{Drama,Romance,"Short\n"}	tt0000971	f	short	1909-01-01
 962	The Mountaineer's Honor	{Drama,"Short\n"}	tt0000972	f	short	1909-01-01
@@ -1916,7 +2419,6 @@ COPY public.movies_movie (id, name, genres, imdb_id, is_adult, title_type, year)
 1202	The Fence on 'Bar Z' Ranch	{Short,"Western\n"}	tt0001213	f	short	1910-01-01
 1203	The Vow; or, Jephthah's Daughter	{Drama,"Short\n"}	tt0001214	f	short	1910-01-01
 1204	The End of Paganini	{Drama,"Short\n"}	tt0001215	f	short	1910-01-01
-1205	The Final Settlement	{Drama,"Short\n"}	tt0001216	f	short	1910-01-01
 1206	A Flash of Light	{Romance,"Short\n"}	tt0001217	f	short	1910-01-01
 1207	A Fallen Spirit	{Animation,Fantasy,"Horror\n"}	tt0001218	f	short	1910-01-01
 1208	Flores y perlas	{Drama,"Short\n"}	tt0001219	f	short	1910-01-01
@@ -3422,6 +3924,7 @@ COPY public.movies_person (id, imdb_id, name, birth_year, death_year) FROM stdin
 963	nm0200060	Phyllis Daniels	1874-01-01	1959-01-01
 984	nm0216066	Charles Delac	1885-01-01	1965-01-01
 1021	nm0217963	Jeanne Delvair	1877-01-01	1949-01-01
+1139	nm0324690	Nikolay Gogol	1809-01-01	1852-01-01
 1072	nm0221142	Henri Desfontaines	1876-01-01	1931-01-01
 1092	nm0271679	Mathilde Felumb Friis	1871-01-01	1945-01-01
 953	nm0313043	Jorge Gentil	\N	\N
@@ -3538,7 +4041,6 @@ COPY public.movies_person (id, imdb_id, name, birth_year, death_year) FROM stdin
 1162	nm0305918	Enrique García Álvarez	1896-01-01	1973-01-01
 1127	nm0308848	William Garwood	1884-01-01	1950-01-01
 1113	nm0316269	Olga Giannini Novelli	\N	\N
-1139	nm0324690	Nikolay Gogol	1809-01-01	1852-01-01
 1195	nm0329212	Robert Goodman	\N	\N
 1167	nm0337586	Alfred E. Green	1889-01-01	1960-01-01
 1243	nm0339408	Winifred Greenwood	1885-01-01	1961-01-01
@@ -4003,6 +4505,7 @@ COPY public.movies_person (id, imdb_id, name, birth_year, death_year) FROM stdin
 1757	nm0305087	Al Ernest Garcia	1887-01-01	1938-01-01
 1738	nm0309186	José Gaspar	\N	\N
 1756	nm0350695	Adolf Gärtner	1879-01-01	1958-01-01
+1190	nm0492280	Albin Lavén	1861-01-01	1917-01-01
 1791	nm0367363	Juan Eugenio Hartzenbusch	1806-01-01	1880-01-01
 1788	nm0397040	Eugen Hovind	\N	\N
 1758	nm0425020	Edith Johnson	1894-01-01	1969-01-01
@@ -4230,7 +4733,6 @@ COPY public.movies_person (id, imdb_id, name, birth_year, death_year) FROM stdin
 1487	nm0483846	William Lampe	\N	\N
 1681	nm0483943	Fritz Lamprecht	1883-01-01	1941-01-01
 1008	nm0486197	Sven Lange	1862-01-01	1930-01-01
-1190	nm0492280	Albin Lavén	1861-01-01	1917-01-01
 494	nm0494039	Charles Le Bargy	1858-01-01	1936-01-01
 424	nm0502752	Robert Z. Leonard	1889-01-01	1968-01-01
 833	nm0503227	Vittoria Lepanto	1885-01-01	1965-01-01
@@ -13884,10 +14386,66 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 
 
 --
+-- Name: authentication_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.authentication_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: authentication_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.authentication_user_id_seq', 1, true);
+
+
+--
+-- Name: authentication_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.authentication_user_user_permissions_id_seq', 1, false);
+
+
+--
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_celery_beat_clockedschedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_celery_beat_clockedschedule_id_seq', 1, false);
+
+
+--
+-- Name: django_celery_beat_crontabschedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_celery_beat_crontabschedule_id_seq', 1, true);
+
+
+--
+-- Name: django_celery_beat_intervalschedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_celery_beat_intervalschedule_id_seq', 1, false);
+
+
+--
+-- Name: django_celery_beat_periodictask_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_celery_beat_periodictask_id_seq', 1, true);
+
+
+--
+-- Name: django_celery_beat_solarschedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_celery_beat_solarschedule_id_seq', 1, false);
 
 
 --
@@ -14022,11 +14580,123 @@ ALTER TABLE ONLY public.auth_user
 
 
 --
+-- Name: authentication_user authentication_user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user
+    ADD CONSTRAINT authentication_user_email_key UNIQUE (email);
+
+
+--
+-- Name: authentication_user_groups authentication_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_groups
+    ADD CONSTRAINT authentication_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authentication_user_groups authentication_user_groups_user_id_group_id_8af031ac_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_groups
+    ADD CONSTRAINT authentication_user_groups_user_id_group_id_8af031ac_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: authentication_user authentication_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user
+    ADD CONSTRAINT authentication_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authentication_user_user_permissions authentication_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_user_permissions
+    ADD CONSTRAINT authentication_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authentication_user_user_permissions authentication_user_user_user_id_permission_id_ec51b09f_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_user_permissions
+    ADD CONSTRAINT authentication_user_user_user_id_permission_id_ec51b09f_uniq UNIQUE (user_id, permission_id);
+
+
+--
 -- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.django_admin_log
     ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_celery_beat_clockedschedule django_celery_beat_clockedschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_clockedschedule
+    ADD CONSTRAINT django_celery_beat_clockedschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_celery_beat_crontabschedule django_celery_beat_crontabschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_crontabschedule
+    ADD CONSTRAINT django_celery_beat_crontabschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_celery_beat_intervalschedule django_celery_beat_intervalschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_intervalschedule
+    ADD CONSTRAINT django_celery_beat_intervalschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_celery_beat_periodictask django_celery_beat_periodictask_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask
+    ADD CONSTRAINT django_celery_beat_periodictask_name_key UNIQUE (name);
+
+
+--
+-- Name: django_celery_beat_periodictask django_celery_beat_periodictask_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask
+    ADD CONSTRAINT django_celery_beat_periodictask_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_celery_beat_periodictasks django_celery_beat_periodictasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictasks
+    ADD CONSTRAINT django_celery_beat_periodictasks_pkey PRIMARY KEY (ident);
+
+
+--
+-- Name: django_celery_beat_solarschedule django_celery_beat_solar_event_latitude_longitude_ba64999a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_solarschedule
+    ADD CONSTRAINT django_celery_beat_solar_event_latitude_longitude_ba64999a_uniq UNIQUE (event, latitude, longitude);
+
+
+--
+-- Name: django_celery_beat_solarschedule django_celery_beat_solarschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_solarschedule
+    ADD CONSTRAINT django_celery_beat_solarschedule_pkey PRIMARY KEY (id);
 
 
 --
@@ -14157,6 +14827,41 @@ CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (u
 
 
 --
+-- Name: authentication_user_email_2220eff5_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX authentication_user_email_2220eff5_like ON public.authentication_user USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: authentication_user_groups_group_id_6b5c44b7; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX authentication_user_groups_group_id_6b5c44b7 ON public.authentication_user_groups USING btree (group_id);
+
+
+--
+-- Name: authentication_user_groups_user_id_30868577; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX authentication_user_groups_user_id_30868577 ON public.authentication_user_groups USING btree (user_id);
+
+
+--
+-- Name: authentication_user_user_permissions_permission_id_ea6be19a; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX authentication_user_user_permissions_permission_id_ea6be19a ON public.authentication_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: authentication_user_user_permissions_user_id_736ebf7e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX authentication_user_user_permissions_user_id_736ebf7e ON public.authentication_user_user_permissions USING btree (user_id);
+
+
+--
 -- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -14168,6 +14873,41 @@ CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_lo
 --
 
 CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_celery_beat_periodictask_clocked_id_47a69f82; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_celery_beat_periodictask_clocked_id_47a69f82 ON public.django_celery_beat_periodictask USING btree (clocked_id);
+
+
+--
+-- Name: django_celery_beat_periodictask_crontab_id_d3cba168; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_celery_beat_periodictask_crontab_id_d3cba168 ON public.django_celery_beat_periodictask USING btree (crontab_id);
+
+
+--
+-- Name: django_celery_beat_periodictask_interval_id_a8ca27da; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_celery_beat_periodictask_interval_id_a8ca27da ON public.django_celery_beat_periodictask USING btree (interval_id);
+
+
+--
+-- Name: django_celery_beat_periodictask_name_265a36b7_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_celery_beat_periodictask_name_265a36b7_like ON public.django_celery_beat_periodictask USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: django_celery_beat_periodictask_solar_id_a87ce72c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_celery_beat_periodictask_solar_id_a87ce72c ON public.django_celery_beat_periodictask USING btree (solar_id);
 
 
 --
@@ -14262,6 +15002,38 @@ ALTER TABLE ONLY public.auth_user_user_permissions
 
 
 --
+-- Name: authentication_user_user_permissions authentication_user__permission_id_ea6be19a_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_user_permissions
+    ADD CONSTRAINT authentication_user__permission_id_ea6be19a_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authentication_user_groups authentication_user__user_id_30868577_fk_authentic; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_groups
+    ADD CONSTRAINT authentication_user__user_id_30868577_fk_authentic FOREIGN KEY (user_id) REFERENCES public.authentication_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authentication_user_user_permissions authentication_user__user_id_736ebf7e_fk_authentic; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_user_permissions
+    ADD CONSTRAINT authentication_user__user_id_736ebf7e_fk_authentic FOREIGN KEY (user_id) REFERENCES public.authentication_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authentication_user_groups authentication_user_groups_group_id_6b5c44b7_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.authentication_user_groups
+    ADD CONSTRAINT authentication_user_groups_group_id_6b5c44b7_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -14275,6 +15047,46 @@ ALTER TABLE ONLY public.django_admin_log
 
 ALTER TABLE ONLY public.django_admin_log
     ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_authentication_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_authentication_user_id FOREIGN KEY (user_id) REFERENCES public.authentication_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_celery_beat_periodictask django_celery_beat_p_clocked_id_47a69f82_fk_django_ce; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask
+    ADD CONSTRAINT django_celery_beat_p_clocked_id_47a69f82_fk_django_ce FOREIGN KEY (clocked_id) REFERENCES public.django_celery_beat_clockedschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_celery_beat_periodictask django_celery_beat_p_crontab_id_d3cba168_fk_django_ce; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask
+    ADD CONSTRAINT django_celery_beat_p_crontab_id_d3cba168_fk_django_ce FOREIGN KEY (crontab_id) REFERENCES public.django_celery_beat_crontabschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_celery_beat_periodictask django_celery_beat_p_interval_id_a8ca27da_fk_django_ce; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask
+    ADD CONSTRAINT django_celery_beat_p_interval_id_a8ca27da_fk_django_ce FOREIGN KEY (interval_id) REFERENCES public.django_celery_beat_intervalschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_celery_beat_periodictask django_celery_beat_p_solar_id_a87ce72c_fk_django_ce; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_celery_beat_periodictask
+    ADD CONSTRAINT django_celery_beat_p_solar_id_a87ce72c_fk_django_ce FOREIGN KEY (solar_id) REFERENCES public.django_celery_beat_solarschedule(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

@@ -11,9 +11,12 @@ import logging
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import AllowAny
 
 from apps.movies.forms import MovieForm
 from apps.movies.models import Movie, Person, PersonMovie
+from apps.movies.serializers import MovieSerializer, MovieShortSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -61,3 +64,20 @@ class LongRunning(View):
         sleep(10)
         logger.error('Ok')
         return HttpResponse('Ok')
+
+
+class MovieListCreateApiView(ListCreateAPIView):
+    serializer_class = MovieShortSerializer
+    filterset_fields = ['year']
+    search_fields = ['name', ]
+
+    def get_queryset(self):
+        return Movie.objects.all()
+
+
+class MovieDetailApiView(RetrieveUpdateDestroyAPIView):
+    serializer_class = MovieSerializer
+
+    def get_queryset(self):
+        return Movie.objects.all()
+
