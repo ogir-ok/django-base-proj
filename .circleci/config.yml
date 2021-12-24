@@ -38,4 +38,5 @@ jobs:
 workflows:
   deploy-prod:
     jobs:
+      - flake8
       - deploy-prod
