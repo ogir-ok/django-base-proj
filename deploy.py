@@ -30,10 +30,7 @@ class Pexpect:
 
 def find_instances():
     ec2 = boto3.resource(service_name='ec2', region_name='us-east-1')
-    running_instances = ec2.instances.filter(Filters=[
-        {'Name': 'instance-state-name', 'Values': ['running']},
-        {'Name': 'tag:Role', 'Values': ['movies-app']},
-    ])
+    running_instances = ec2.instances.filter(Filters=[])
     return running_instances
 
 
@@ -59,7 +56,9 @@ def deploy_host(instance):
 
 def deploy():
     instances = find_instances()
-
+    for instance in instances:
+        print(instance.public_ip_address)
+    return
     for instance in instances:
         deploy_host(instance)
 
