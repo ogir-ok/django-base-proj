@@ -7,12 +7,17 @@ from apps.movies.models import Movie
 
 @shared_task
 def parse_movies():
-    for movie in [Movie.objects.first()]:
-        response = requests.get(f'https://www.imdb.com/title/{movie.imdb_id}/')
-        print(response)
-        bs = BeautifulSoup(response.text)
-        print(bs.find_all('img'))
+    response = requests.get(f'https://www.imdb.com/title/tt0000001/')
+    bs = BeautifulSoup(response.text)
 
-        #print(movie.imdb_id)
+    return bs.find('p', {'data-testid': 'plot'}).find('span').findNext().text
 
-        #print(bs.find('p', {'data-testid': 'plot'}).find('span').findNext().text)
+
+def ab(a, b):
+    return a + b
+
+
+@shared_task
+def task2(a, b):
+    x = ab(a, b) + ab(a, b)
+    return x

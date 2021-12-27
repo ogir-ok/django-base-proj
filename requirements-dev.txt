@@ -1,0 +1,6 @@
+-r requirements.txt
+
+factory-boy==3.2.1
+flake8==4.0.1
+coverage==6.2
+requests-mock==1.9.3
