@@ -59,8 +59,7 @@ def deploy():
     for instance in instances:
         print(instance.public_ip_address)
     return
-    for instance in instances:
-        deploy_host(instance)
+
 
 
 if __name__ == '__main__':
