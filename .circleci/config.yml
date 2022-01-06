@@ -22,7 +22,7 @@ jobs:
             - "a3:01:61:be:1b:58:f0:85:e8:e7:ed:fd:a6:d4:2d:7e"
       - run:
           name: "start deploy"
-          command: "python3 daploy.py"
+          command: "sudo python3 deploy.py"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
