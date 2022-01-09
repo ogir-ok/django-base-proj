@@ -12,18 +12,48 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
+
+  redis:
+    image: redis
+
+  celery:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/src
+    command:
+      /bin/bash -c "pip install -r requirements.txt; celery -A config.celery worker -l INFO"
+    links:
+      - db
+      - redis
+
   web:
     build: .
-    environment:
-      - DJANGO_SETTINGS_MODULE=settings.dev
+    env_file:
+      - .env
     volumes:
       - .:/src
     command:
       /bin/bash -c "pip install -r requirements.txt; invoke run"
     links:
       - db
+      - redis
     ports:
-      - 8000:8000
+      - "8000:80"
+
+  nginx:
+    image: nginx
+    links:
+      - web
+      - db
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/static:ro
+      - ./media:/media:ro
+    ports:
+      - "80:80"
+
 volumes:
   pgdata:

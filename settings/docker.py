@@ -1,6 +1,7 @@
 from .base import *
 import os
 
+SECRET_KEY = os.getenv('SECRET_KEY', SECRET_KEY)
 STATIC_ROOT = '/static/'
 
 DATABASES = {
@@ -23,3 +24,10 @@ LOGGING = {
         "apps": {"level": "DEBUG", "handlers": ["console"]},
     },
 }
+
+
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
