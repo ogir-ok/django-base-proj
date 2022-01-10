@@ -10,6 +10,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" name="Log in"/>
+
     </form>
+        <a href="{% url "social:begin" "google-oauth2" %}">Google+</a>
         <a href="{% url 'authentication:register' %}"> register </a>
 {% endblock %}
